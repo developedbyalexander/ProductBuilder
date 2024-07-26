@@ -1,0 +1,660 @@
+.product-builder {
+  margin: 50px 0;
+
+  .product-builder-wrapper {
+    display: flex;
+    width: 100%;
+
+    .left {
+      flex: 1 1 65%;
+      margin: 0 15px;
+
+      .images {
+        display: flex;
+        flex-wrap: wrap;
+
+        .image {
+          flex: 0 0 50%;
+          padding: 10px;
+          box-sizing: border-box;
+
+          img {
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+    }
+
+    .right {
+      flex: 1 1 35%;
+      margin: 0 15px;
+
+      .product-price {
+        font-size: 18px;
+        font-weight: 300;
+        color: #002060;
+      }
+
+      .product-title {
+        font-size: 24px;
+        line-height: 1.2;
+        text-transform: uppercase;
+        color: #222;
+        font-weight: 400;
+        margin: 20px 0 .5em;
+      }
+    }
+
+    .options {
+      .option {
+        margin-bottom: 20px;
+
+        .option-title {
+          .value {
+            font-weight: 700;
+          }
+        }
+
+        .option-values {
+          display: flex;
+          flex-wrap: wrap;
+
+          &.four-columns label {
+            flex: 1 1 25%;
+          }
+
+          .option-value {
+            input {
+              display: none;
+            }
+
+            &.color {
+              display: inline-block;
+
+              .circle-button-wrapper {
+                display: inline-block;
+                position: relative;
+                width: 40px;
+                height: 40px;
+                margin: 5px;
+                cursor: pointer;
+
+                .circle-button {
+                  display: block;
+                  box-sizing: content-box;
+                  position: absolute;
+                  width: 40px;
+                  height: 40px;
+                  padding: 0;
+                  top: 50%;
+                  left: 50%;
+                  -webkit-transform: translate(-50%, -50%);
+                  -ms-transform: translate(-50%, -50%);
+                  -o-transform: translate(-50%, -50%);
+                  transform: translate(-50%, -50%);
+                  border-radius: 100%;
+                  background: #eeeeee;
+                  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+                  transition: ease .3s;
+
+                  &:hover {
+                    padding: 6px;
+                  }
+
+                }
+              }
+
+              input {
+                &:checked + .circle-button-wrapper {
+                  .circle-button {
+                    padding: 6px;
+                  }
+                }
+              }
+
+              &.black .circle-button {
+                background: #000;
+              }
+
+              &.graphite-grey .circle-button {
+                background: #44474d;
+              }
+
+              &.grey .circle-button {
+                background: #a1a1a1;
+              }
+
+              &.beige .circle-button {
+                background: #d5c0a9;
+              }
+
+              &.blue .circle-button {
+                background: #0091f7;
+              }
+
+              &.purple .circle-button {
+                background: #7925c7;
+              }
+
+              &.yellow .circle-button {
+                background: #f7cd28;
+              }
+
+              &.white .circle-button {
+                background: #fff;
+              }
+
+              &.pink .circle-button {
+                background: #f7b5c2;
+              }
+
+              &.red .circle-button {
+                background: #f70000;
+              }
+
+              &.orange .circle-button {
+                background: #f7761c;
+              }
+            }
+
+            &.image {
+              padding: 0 5px;
+              box-sizing: border-box;
+              cursor: pointer;
+
+              img {
+                width: 100%;
+                height: auto;
+              }
+
+              input {
+                &:checked + img {
+                  border: 1px solid #ccc;
+                }
+              }
+            }
+
+            &.box {
+              padding: 0 5px;
+              box-sizing: border-box;
+              cursor: pointer;
+
+              .box-text {
+                border: 1px solid #ccc;
+                padding: 5px 10px;
+                transition: ease .3s;
+              }
+
+              input {
+                &:checked + .box-text,
+                &:hover + .box-text {
+                  border-color: #0f2652;
+                  background: #0f2652;
+                  color: #fff;
+                }
+              }
+            }
+
+
+          }
+        }
+      }
+    }
+
+    .car-details {
+      label {
+        display: block;
+        margin-bottom: 10px;
+
+        select {
+          width: 100%;
+          border: 1px solid #dedede;
+          padding: 10px;
+        }
+
+        .error {
+          color: #b80e12;
+          font-size: 14px;
+          padding: 5px;
+        }
+      }
+    }
+
+    .add-to-cart {
+      display: block;
+      width: 100%;
+      font-size: 20px;
+      font-weight: 300;
+      padding: 5px 10px 5px 65px;
+      -webkit-appearance: button;
+      color: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      border: 0;
+      background: #0272be;
+      background: -moz-linear-gradient(top, #0272be 0%, #002060 100%);
+      background: -webkit-linear-gradient(top, #0272be 0%, #002060 100%);
+      background: linear-gradient(to bottom, #0272be, #002060);
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0272be", endColorstr="#002060", GradientType=0);
+      height: auto;
+      min-height: 50px;
+      margin: 1em 0 0;
+      border-radius: 5px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      transition: background .3s;
+
+      &:before {
+        font: 35px / 1 Icons;
+        content: "";
+        position: absolute;
+        left: -1px;
+        top: 0;
+        bottom: -1px;
+        background: #d51a1f;
+        background: -moz-linear-gradient(top, #d51a1f 0%, #b80e12 100%);
+        background: -webkit-linear-gradient(top, #d51a1f 0%, #b80e12 100%);
+        background: linear-gradient(to bottom, #d51a1f, #b80e12);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d51a1f", endColorstr="#b80e12", GradientType=0);
+        padding: 0 25px 0 10px;
+        clip-path: polygon(0 0, 100% 0, 70% 100%, 0% 100%);
+        line-height: 25px;
+        width: 80px;
+      }
+    }
+  }
+}
+
+/* v2 */
+
+.product-builder {
+  .pBuilderStep3 {
+    background-image: url(https://cdn.shopify.com/s/files/1/0324/8091/9684/files/pas_2.png?v=1715837390);
+    min-height: 44px;
+    line-height: 44px;
+    padding: 0 0 0 97px;
+  }
+}
+
+#embroideryEditModal {
+  .options {
+    .option {
+      margin-bottom: 20px;
+
+      .option-title {
+        .value {
+          font-weight: 700;
+        }
+      }
+
+      .option-values {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        &.four-columns label {
+          flex: 1 1 25%;
+        }
+
+        .option-value {
+          input {
+            display: none;
+          }
+
+          &.color {
+            display: inline-block;
+
+            .circle-button-wrapper {
+              display: inline-block;
+              position: relative;
+              width: 40px;
+              height: 40px;
+              margin: 5px;
+              cursor: pointer;
+
+              .circle-button {
+                display: block;
+                box-sizing: content-box;
+                position: absolute;
+                width: 40px;
+                height: 40px;
+                padding: 0;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%, -50%);
+                -ms-transform: translate(-50%, -50%);
+                -o-transform: translate(-50%, -50%);
+                transform: translate(-50%, -50%);
+                border-radius: 100%;
+                background: #eeeeee;
+                box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+                transition: ease .3s;
+
+                &:hover {
+                  padding: 6px;
+                }
+
+              }
+            }
+
+            input {
+              &:checked + .circle-button-wrapper {
+                .circle-button {
+                  padding: 6px;
+                }
+              }
+            }
+
+            &.black .circle-button {
+              background: #000;
+            }
+
+            &.graphite-grey .circle-button {
+              background: #44474d;
+            }
+
+            &.grey .circle-button {
+              background: #a1a1a1;
+            }
+
+            &.beige .circle-button {
+              background: #d5c0a9;
+            }
+
+            &.blue .circle-button {
+              background: #0091f7;
+            }
+
+            &.purple .circle-button {
+              background: #7925c7;
+            }
+
+            &.yellow .circle-button {
+              background: #f7cd28;
+            }
+
+            &.white .circle-button {
+              background: #fff;
+            }
+
+            &.pink .circle-button {
+              background: #f7b5c2;
+            }
+
+            &.red .circle-button {
+              background: #f70000;
+            }
+
+            &.orange .circle-button {
+              background: #f7761c;
+            }
+          }
+
+          &.box {
+            padding: 0 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+            line-height: 1.5;
+
+            .box-text {
+              display: block;
+              border: 1px solid #ccc;
+              padding: 5px 10px;
+              transition: ease .3s;
+            }
+
+            input:disabled {
+              & + .box-text {
+                border-color: #a10b0f;
+                background: #a10b0f;
+                color: #fff;
+              }
+
+              &:hover + .box-text {
+                border-color: #a10b0f;
+                background: #a10b0f;
+                color: #fff;
+              }
+            }
+
+            input {
+              &:checked + .box-text,
+              &:hover + .box-text {
+                border-color: #0f2652;
+                background: #0f2652;
+                color: #fff;
+              }
+            }
+          }
+
+          &.image {
+            padding: 0 5px;
+            box-sizing: border-box;
+            cursor: pointer;
+
+            &.checked {
+              border: 1px solid #ccc;
+            }
+
+            img {
+              width: 100%;
+              height: auto;
+            }
+
+            input {
+
+              &:checked + img {
+                border: 0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .footer-btns {
+    display: flex;
+
+    button {
+      padding: 5px 15px;
+      margin: 0 5px;
+      height: auto;
+      line-height: 1.5;
+
+      &.delete {
+        &:hover {
+          background: #021742;
+        }
+      }
+
+      &.save {
+        background: #d51a1f;
+
+        &:hover {
+          background: #a10b0f;
+        }
+      }
+    }
+  }
+
+  .types-and-canvas {
+    display: flex;
+  }
+}
+
+#embroideryIcon {
+  .option-values {
+    max-height: 267px;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: #000000;
+      border: 2px solid #555555;
+    }
+
+    .option-value {
+      width: 144px;
+    }
+  }
+}
+
+
+#embroideryTextFont {
+  .option-value {
+    display: flex;
+    align-items: center;
+
+    .box-text {
+      font-size: 22px;
+    }
+  }
+}
+
+#embroideryBuilder {
+
+  #editItemElements {
+    margin-bottom: 15px;
+
+    .itemTypes {
+      display: flex;
+
+      .itemType {
+        margin: 0 10px;
+        text-align: center;
+
+        button {
+          border: 1px solid #ccc;
+          padding: 5px 10px;
+          transition: ease .3s;
+          background: transparent;
+          color: #222222;
+          margin: 0;
+          cursor: pointer;
+
+          &:hover {
+            color: #fff;
+            border-color: #0f2652;
+            background: #0f2652;
+          }
+        }
+      }
+    }
+
+    button {
+      display: block;
+      margin: 10px;
+      padding: 5px;
+      line-height: 1;
+      height: auto;
+    }
+  }
+}
+
+.white-popup-block {
+  background: #fff;
+  padding: 20px 30px;
+  text-align: left;
+  max-width: 650px;
+  margin: 40px auto;
+  position: relative;
+}
+
+
+#embroideryImages {
+  .embroideryImageWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .embroideryImage {
+      width: 100%;
+    }
+
+    .btn {
+      display: block;
+      -webkit-appearance: button;
+      font-family: 'Poppins-Medium';
+      font-size: 14px;
+      font-weight: 300;
+      background: #002060;
+      color: #fff;
+      text-align: center;
+      text-transform: uppercase;
+      height: 40px;
+      line-height: 40px;
+      padding: 0 20px;
+      margin: 1em 0;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: all 0.5s;
+    }
+  }
+  .glide__arrows {
+    .glide__arrow {
+      position: absolute;
+      transform: translate(-50%, 0);
+      background: #c71419;
+      color: #fff;
+      padding: 15px 10px;
+
+      &.glide__arrow--left {
+        top: 50%;
+        left: 0;
+      }
+
+      &.glide__arrow--right {
+        top: 50%;
+        right: 0;
+      }
+    }
+  }
+}
+
+
+@media only screen and (max-width: 767px) {
+  .embroideryImage {
+    .konvajs-content {
+      height: auto !important;
+      max-width: 100%;
+      max-height: 100%;
+
+      canvas {
+        display: block;
+        max-width: 100%;
+        height: auto !important;
+        float: left;
+        position: relative !important;
+      }
+    }
+  }
+  #embroideryIcon {
+    .option-values {
+      .option-value {
+        width: 50%;
+      }
+    }
+  }
+  #embroideryEditModal {
+    .types-and-canvas {
+      flex-wrap: wrap;
+    }
+    .embroideryImages {
+      width: 100%;
+    }
+  }
+}
