@@ -772,10 +772,17 @@ const PTCProductBuilder = {
         xhr.send(formData);
     },
     getProperties: async function () {
-        const properties = PTCProductBuilder.currentSettings;
+        const properties = this.currentSettings;
         properties['_odoo_attributes'] = this.getOdooProperties();
         if (this.currentSettings.embroidery === 'yes') {
-            properties['_embroidery'] = await PTCProductBuilder.embroideryBuilder.saveImages();
+            const embroideryImages = await this.embroideryBuilder.saveImages();
+            properties['_embroidery'] = embroideryImages;
+            properties['_odoo_attributes'].push({
+                id: null,
+                name: 'Broderie',
+                images: embroideryImages,
+                elements: this.getEmbroideryItemsElements()
+            });
         }
         return properties;
     },
@@ -798,6 +805,22 @@ const PTCProductBuilder = {
         }
 
         return odooProperties;
+    },
+    getEmbroideryItemsElements: function () {
+        const itemsElements = {};
+        const itemActions = PTCProductBuilder.embroiderySettings.itemActions;
+        if (Object.keys(itemActions).length === 0) return itemsElements;
+        for (const itemKey in itemActions) {
+            if (itemActions[itemKey].hasOwnProperty('page')) {
+                itemsElements[itemKey] = {};
+                const elements = itemActions[itemKey].page;
+                for (const elementKey in elements) {
+                    itemsElements[itemKey][elementKey] = elements[elementKey];
+                    delete itemsElements[itemKey][elementKey]['element'];
+                }
+            }
+        }
+        return itemsElements
     },
     validate: function () {
         const errorEls = {
