@@ -1555,8 +1555,10 @@ const PTCProductBuilder = {
                 const parent = fontOption.closest('.option-value.box');
                 if (isDefaultHeight) {
                     parent.style.height = 'auto';
+                    parent.style.width = 'auto';
                 } else {
                     parent.style.height = fontOption.offsetWidth ?? 0;
+                    parent.style.width = fontOption.offsetHeight + 20 ?? 0;
                 }
             });
         },

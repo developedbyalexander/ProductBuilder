@@ -218,6 +218,7 @@
 
 #embroideryEditModal .options .option {
   margin-bottom: 20px;
+  padding-bottom: 0;
 }
 #embroideryEditModal .options .option .option-title .value {
   font-weight: 700;
@@ -311,6 +312,7 @@
   display: block;
   border: 1px solid #ccc;
   padding: 5px 10px;
+  margin-bottom: 10px;
   transition: ease 0.3s;
 }
 #embroideryEditModal .options .option .option-values .option-value.box input:disabled + .box-text {
@@ -388,6 +390,7 @@
 #embroideryTextFont .option-value {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 #embroideryTextFont .option-value .box-text {
   font-size: 22px;
