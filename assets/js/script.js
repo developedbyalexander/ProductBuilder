@@ -1539,6 +1539,7 @@ const PTCProductBuilder = {
             });
         },
         updateFontTextByPositionAndFlip(position, flip) {
+            debugger
             let rotateValue;
             let isDefaultHeight = true;
 
@@ -1557,8 +1558,8 @@ const PTCProductBuilder = {
                     parent.style.height = 'auto';
                     parent.style.width = 'auto';
                 } else {
-                    parent.style.height = fontOption.offsetWidth ?? 0;
-                    parent.style.width = fontOption.offsetHeight + 20 ?? 0;
+                    parent.style.height = (fontOption.offsetWidth ?? 0) + 'px';
+                    parent.style.width = (fontOption.offsetHeight + 20 ?? 0) + 'px';
                 }
             });
         },
