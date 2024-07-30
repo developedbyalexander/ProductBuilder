@@ -315,11 +315,11 @@ const PTCProductBuilder = {
         basePrice: 198,
         borderColor: 24,
         embroidery: {
-            1: 50,
-            2: 90,
-            3: 130,
-            4: 160,
-            6: 260,
+                1: 50,
+                2: 90,
+                3: 130,
+                4: 160,
+                6: 260,
             8: 320
         },
         threadColor: {
@@ -775,7 +775,7 @@ const PTCProductBuilder = {
         const properties = PTCProductBuilder.currentSettings;
         properties['_odoo_attributes'] = this.getOdooProperties();
         if (this.currentSettings.embroidery === 'yes') {
-            properties['_embroidery'] = await PTCProductBuilder.embroideryBuilder.saveImage();
+            properties['_embroidery'] = await PTCProductBuilder.embroideryBuilder.saveImages();
         }
         return properties;
     },
@@ -1619,6 +1619,37 @@ const PTCProductBuilder = {
             radioButtons.forEach(radioButton => {
                 radioButton.checked = radioButton.value === value;
             });
+        },
+        saveImages: async function () {
+            const images = {}
+            for (const itemKey of this.itemKeys) {
+                images[itemKey] = await this.saveImage(itemKey);
+            }
+            return images;
+        },
+        saveImage: async function (itemKey) {
+            let imageUrl = '';
+            const stage = this.canvas[itemKey].page.stage;
+            const dataURL = stage.toDataURL();
+            try {
+                const response = await fetch(PTCProductBuilder.embroiderySaveImageURL, {
+                    method: 'POST',
+                    body: JSON.stringify({ image: dataURL }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.status) {
+                    console.error('Error saving image');
+                }
+
+                const data = await response.json();
+                imageUrl = PTCProductBuilder.embroideryImagesURL  + data.url;
+            } catch (error) {
+                console.error('Error saving image:', error);
+            }
+            return imageUrl;
         },
         settings: {
             getSettings: function () {
