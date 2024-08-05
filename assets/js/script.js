@@ -8,6 +8,7 @@ const PTCProductBuilder = {
     embroideryIconsURL: null,
     storageKey: null,
     currentSettings: {
+        'version': '1.2.0',
         'baseColor': 'black',
         'borderColor': 'black',
         'threadType': 'simple',
@@ -315,11 +316,13 @@ const PTCProductBuilder = {
         basePrice: 198,
         borderColor: 24,
         embroidery: {
-                1: 50,
-                2: 90,
-                3: 130,
-                4: 160,
-                6: 260,
+            1: 50,
+            2: 90,
+            3: 130,
+            4: 160,
+            5: 223,
+            6: 260,
+            7: 302,
             8: 320
         },
         threadColor: {
@@ -400,12 +403,12 @@ const PTCProductBuilder = {
             }
         },
     },
-    init: function (config) {
+    init: async function (config) {
         this.applyConfig(config);
         this.addListeners();
         if (this.storage.hasSettings()) {
             this.currentSettings = this.storage.getSettings();
-            this.updateOptionsBySettings();
+            await this.updateOptionsBySettings();
         }
         this.preloadImages();
         this.embroideryBuilder.init();
@@ -463,7 +466,7 @@ const PTCProductBuilder = {
         }
     },
     setOptionTextValue: function (optionKey, value) {
-        if (optionKey === '_odoo_attributes') return;
+        if (['_odoo_attributes', 'version'].includes(optionKey)) return;
         const optionEl = document.getElementById(optionKey);
         const titleText = optionEl.querySelector('.value');
         if (titleText) {
@@ -575,7 +578,7 @@ const PTCProductBuilder = {
             if(this.currentSettings.baseColor !== standardPrice.baseColor) continue;
             const currentDiff = [];
             for (const key in this.currentSettings) {
-                if (['carBrand', 'carModel', 'carSubmodel', 'embroidery', '_odoo_attributes'].includes(key)) continue;
+                if (['carBrand', 'carModel', 'carSubmodel', 'embroidery', '_odoo_attributes', 'version'].includes(key)) continue;
                 if (this.currentSettings.hasOwnProperty(key) && this.currentSettings[key] !== standardPrice[key]) {
                     currentDiff.push(key);
                 }
@@ -780,8 +783,7 @@ const PTCProductBuilder = {
             properties['_odoo_attributes'].push({
                 id: null,
                 name: 'Broderie',
-                images: embroideryImages,
-                elements: this.getEmbroideryItemsElements()
+                value: this.embroideryBuilder.getEmbroideryItemsElements(embroideryImages)
             });
         }
         return properties;
@@ -806,22 +808,6 @@ const PTCProductBuilder = {
 
         return odooProperties;
     },
-    getEmbroideryItemsElements: function () {
-        const itemsElements = {};
-        const itemActions = PTCProductBuilder.embroiderySettings.itemActions;
-        if (Object.keys(itemActions).length === 0) return itemsElements;
-        for (const itemKey in itemActions) {
-            if (itemActions[itemKey].hasOwnProperty('page')) {
-                itemsElements[itemKey] = {};
-                const elements = itemActions[itemKey].page;
-                for (const elementKey in elements) {
-                    itemsElements[itemKey][elementKey] = elements[elementKey];
-                    delete itemsElements[itemKey][elementKey]['element'];
-                }
-            }
-        }
-        return itemsElements
-    },
     validate: function () {
         const errorEls = {
             'carBrand': document.getElementById('carBrandError'),
@@ -842,7 +828,10 @@ const PTCProductBuilder = {
     },
     storage: {
         hasSettings: function () {
-            return Boolean(localStorage.getItem(PTCProductBuilder.storageKey));
+            const settings = localStorage.getItem(PTCProductBuilder.storageKey);
+            if (settings === null) return false;
+            const version = JSON.parse(settings).version ?? false;
+            return Boolean(version === PTCProductBuilder.currentSettings.version);
         },
         getSettings: function () {
             const settings = localStorage.getItem(PTCProductBuilder.storageKey);
@@ -1676,6 +1665,24 @@ const PTCProductBuilder = {
                 console.error('Error saving image:', error);
             }
             return imageUrl;
+        },
+        getEmbroideryItemsElements: function (images = {}) {
+            const itemsElements = {};
+            const itemActions = PTCProductBuilder.embroiderySettings.itemActions;
+            if (Object.keys(itemActions).length === 0) return itemsElements;
+            for (const itemKey in itemActions) {
+                if (itemActions[itemKey].hasOwnProperty('page')) {
+                    itemsElements[itemKey] = {
+                        image: images[itemKey] ?? ''
+                    };
+                    const elements = itemActions[itemKey].page;
+                    for (const elementKey in elements) {
+                        itemsElements[itemKey][elementKey] = elements[elementKey];
+                        delete itemsElements[itemKey][elementKey]['element'];
+                    }
+                }
+            }
+            return itemsElements
         },
         settings: {
             getSettings: function () {
