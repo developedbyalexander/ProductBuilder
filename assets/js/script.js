@@ -786,6 +786,7 @@ const PTCProductBuilder = {
                 value: this.embroideryBuilder.getEmbroideryItemsElements(embroideryImages)
             });
         }
+        debugger
         return properties;
     },
     getOdooProperties: function () {
@@ -809,6 +810,7 @@ const PTCProductBuilder = {
         return odooProperties;
     },
     validate: function () {
+        return true;
         const errorEls = {
             'carBrand': document.getElementById('carBrandError'),
             'carModel': document.getElementById('carModelError'),
@@ -846,6 +848,12 @@ const PTCProductBuilder = {
     },
     embroideryBuilder: {
         itemKeys: ['item-1', 'item-2', 'item-3', 'item-4'],
+        itemKeyMappings: {
+            'item-1': {key: 'covoras_sofer', title: 'Covoras sofer'},
+            'item-2': {key: 'covoras_pasager', title: 'Covoras pasager'},
+            'item-3': {key: 'covoras_stanga_spate', title: 'Covoras stanga spate'},
+            'item-4': {key: 'covoras_dreapta_spate', title: 'Covoras dreapta spate'}
+        },
         svgs: {
             'item-1': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 2500">
           <defs>
@@ -1528,7 +1536,6 @@ const PTCProductBuilder = {
             });
         },
         updateFontTextByPositionAndFlip(position, flip) {
-            debugger
             let rotateValue;
             let isDefaultHeight = true;
 
@@ -1671,14 +1678,17 @@ const PTCProductBuilder = {
             const itemActions = PTCProductBuilder.embroiderySettings.itemActions;
             if (Object.keys(itemActions).length === 0) return itemsElements;
             for (const itemKey in itemActions) {
+                const mapping = this.itemKeyMappings[itemKey] ?? false;
+                const mappedItemKey = mapping.key ?? itemKey;
                 if (itemActions[itemKey].hasOwnProperty('page')) {
-                    itemsElements[itemKey] = {
+                    itemsElements[mappedItemKey] = {
+                        title: mapping.title ?? '',
                         image: images[itemKey] ?? ''
                     };
                     const elements = itemActions[itemKey].page;
                     for (const elementKey in elements) {
-                        itemsElements[itemKey][elementKey] = elements[elementKey];
-                        delete itemsElements[itemKey][elementKey]['element'];
+                        itemsElements[mappedItemKey][elementKey] = elements[elementKey];
+                        delete itemsElements[mappedItemKey][elementKey]['element'];
                     }
                 }
             }
