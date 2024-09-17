@@ -516,7 +516,12 @@ const PTCProductBuilder = {
             document.getElementById('thirdImage').src = this.resizeImage(images.thirdImage, '_450x450_crop_center');
             document.getElementById('fourthImage').src = this.resizeImage(images.fourthImage, '_450x450_crop_center');
             document.getElementById('fifthImage').src = this.resizeImage(images.fifthImage, '_450x450_crop_center');
-            document.getElementById('sixthImage').src = this.resizeImage(images.sixthImage, '_450x450_crop_center');
+            if( images.sixthImage === false){
+                document.getElementById('sixthImage').style.display = "none";
+            }else{
+                document.getElementById('sixthImage').style.display = "block";
+                document.getElementById('sixthImage').src = this.resizeImage(images.sixthImage, '_450x450_crop_center');
+            }
             if( images.seventhImage === false){
                 document.getElementById('seventhImage').style.display = "none";
             }else{
@@ -1199,7 +1204,7 @@ const PTCProductBuilder = {
                 if (formId === 'embroideryTextForm') {
                     const itemCanvas = PTCProductBuilder.embroideryBuilder.canvas[itemKey];
                     for (const location in itemCanvas) {
-                            PTCProductBuilder.embroideryBuilder.saveText(itemKey, location, params);
+                        PTCProductBuilder.embroideryBuilder.saveText(itemKey, location, params);
                     }
                 }
                 if (formId === 'embroideryIconForm') {
