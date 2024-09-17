@@ -7,6 +7,15 @@ const PTCProductBuilder = {
     embroideryImagesURL: null,
     embroideryIconsURL: null,
     storageKey: null,
+    activeSettings: {
+        'baseColor': true,
+        'borderColor': true,
+        'threadType': true,
+        'threadColor': true,
+        'reinforcement': true,
+        'configuration': true,
+        'embroidery': true
+    },
     currentSettings: {
         'version': '1.2.0',
         'baseColor': 'black',
@@ -67,274 +76,9 @@ const PTCProductBuilder = {
             'yes': 'Da'
         }
     },
-    images: {
-        'black-black': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_neagra_1.png?v=1716176820',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_neagra_2.jpg?v=1716176820',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_neagra_3.png?v=1716176820',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_neagra_4.jpg?v=1716176819',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_neagra_5.png?v=1716176820',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_neagra_6.jpg?v=1716176820',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_neagra_7.jpg?v=1716176820'
-        },
-        'black-blue': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_albastra_1.png?v=1716178093',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_albastra_2.jpg?v=1716178093',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_albastra_3.png?v=1716178098',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_albastra_4.jpg?v=1716178093',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_albastra_5.png?v=1716178094',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_albastra_6.jpg?v=1716178307',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_albastra_7.jpg?v=1716178307'
-        },
-        'black-grey': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_gri_1.png?v=1716179476',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_gri_2.jpg?v=1716179477',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_gri_3.png?v=1716179477',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_gri_4.jpg?v=1716179476',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_gri_5.png?v=1716179477',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_gri_6.jpg?v=1716179477',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_gri_7.jpg?v=1716179477'
-        },
-        'black-magenta': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_ciclam_1.png?v=1716178901',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_ciclam_2.jpg?v=1716178901',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_ciclam_3.png?v=1716178901',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_ciclam_4.jpg?v=1716178901',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_ciclam_5.png?v=1716178901',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_ciclam_6.jpg?v=1716178901',
-            'seventhImage': false
-        },
-        'black-orange': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_portocalie_1.png?v=1716210016',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_portocalie_2.jpg?v=1716181275',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_portocalie_3.png?v=1716210016',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_portocalie_4.jpg?v=1716181275',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_portocalie_5.png?v=1716210017',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_portocalie_6.jpg?v=1716181275',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_portocalie_7.jpg?v=1716181275',
-        },
-        'black-purple': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_mov_1.png?v=1716179800',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_mov_2.jpg?v=1716179800',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_mov_3.png?v=1716179801',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_mov_4.jpg?v=1716179801',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_mov_5.png?v=1716179801',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_mov_6.jpg?v=1716179801',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_mov_7.jpg?v=1716179801'
-        },
-        'black-white': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_alba_1.png?v=1716177490',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_alba_2.jpg?v=1716177491',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_alba_3.png?v=1716177490',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_alba_4.jpg?v=1716177490',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_alba_5.png?v=1716177491',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_alba_6.jpg?v=1716177490',
-            'seventhImage': false
-        },
-        'black-yellow': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_galbena_1.png?v=1716179212',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_galbena_2.jpg?v=1716179213',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_galbena_3.png?v=1716179213',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_galbena_4.jpg?v=1716179212',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_galbena_5.png?v=1716179213',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_galbena_6.jpg?v=1716179212',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_galbena_7.jpg?v=1716179212'
-        },
-        'black-red': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_rosie_1.png?v=1716187050',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_rosie_2.jpg?v=1716187050',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_rosie_3.png?v=1716187049',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_rosie_4.jpg?v=1716187048',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_rosie_5.png?v=1716187050',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_rosie_6.jpg?v=1716187049',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_mocheta_negre_margine_rosie_7.jpg?v=1716187049'
-        },
-        'beige-black': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_neagra_1.png?v=1716184820',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_neagra_2.jpg?v=1716184820',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_neagra_3.png?v=1716184821',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_neagra_4.jpg?v=1716184820',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_neagra_5.png?v=1716184821',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_neagra_6.jpg?v=1716184820',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_neagra_7.jpg?v=1716184821'
-        },
-        'beige-blue': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_albastra_1.png?v=1716181928',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_albastra_2.jpg?v=1716181928',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_albastra_3.png?v=1716181928',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_albastra_4.jpg?v=1716181928',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_albastra_5.png?v=1716181929',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_albastra_6.jpg?v=1716181928',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_albastra_7.jpg?v=1716181929'
-        },
-        'beige-grey': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_gri_1.png?v=1716183686',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_gri_2.jpg?v=1716183686',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_gri_3.png?v=1716183687',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_gri_4.jpg?v=1716183686',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_gri_5.png?v=1716183688',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_gri_6.jpg?v=1716183686',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_gri_7.jpg?v=1716183686'
-        },
-        'beige-magenta': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_ciclam_1.png?v=1716182629',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_ciclam_2.jpg?v=1716182630',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_ciclam_3.png?v=1716182629',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_ciclam_4.jpg?v=1716182629',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_ciclam_5.png?v=1716182630',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_ciclam_6.jpg?v=1716182629',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_ciclam_7.jpg?v=1716182629'
-        },
-        'beige-orange': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_portocalie_1.png?v=1716186112',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_portocalie_2.jpg?v=1716186112',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_portocalie_3.png?v=1716186112',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_portocalie_4.jpg?v=1716186112',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_portocalie_5.png?v=1716186112',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_portocalie_6.jpg?v=1716186111',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_portocalie_7.jpg?v=1716186112'
-        },
-        'beige-purple': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_mov_1.png?v=1716183950',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_mov_2.jpg?v=1716183950',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_mov_3.png?v=1716183951',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_mov_4.jpg?v=1716183949',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_mov_5.png?v=1716183950',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_mov_6.jpg?v=1716183950',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_mov_7.jpg?v=1716183950'
-        },
-        'beige-red': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_rosie_1.png?v=1716210128',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_rosie_2.jpg?v=1716186547',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_rosie_3.png?v=1716210130',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_rosie_4.jpg?v=1716186468',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_rosie_5.png?v=1716210130',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_rosie_6.jpg?v=1716186467',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_rosie_7.jpg?v=1716186467'
-        },
-        'beige-white': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_alba_1.png?v=1716181614',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_alba_2.jpg?v=1716181614',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_alba_3.png?v=1716181614',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_alba_4.jpg?v=1716181613',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_alba_5.png?v=1716181613',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_alba_6.jpg?v=1716181613',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_alba_7.jpg?v=1716181613'
-        },
-        'beige-yellow': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_galbena_1.png?v=1716183336',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_galbena_2.jpg?v=1716183336',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_galbena_3.png?v=1716183338',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_galbena_4.jpg?v=1716183335',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_galbena_5.png?v=1716183336',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_galbena_6.jpg?v=1716183336',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase_auto_mocheta_bej_margine_galbena_7.jpg?v=1716183336'
-        },
-        'grey-black': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_neagra_1.png?v=1716212513',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_neagra_2.jpg?v=1716187533',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_neagra_3.png?v=1716212514',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_neagra_4.jpg?v=1716187532',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_neagra_5.png?v=1716212514',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_neagra_6.jpg?v=1716187533',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_neagra_7.jpg?v=1716187533'
-        },
-        'grey-blue': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_albastra_1.png?v=1716187770',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_albastra_2.jpg?v=1716187769',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_albastra_3.png?v=1716187771',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_albastra_4.jpg?v=1716187769',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_albastra_5.png?v=1716187771',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_albastra_6.jpg?v=1716187769',
-            'seventhImage': false
-        },
-        'grey-grey': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_gri_1.png?v=1716187997',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_gri_2.jpg?v=1716187996',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_gri_3.png?v=1716187998',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_gri_4.jpg?v=1716187996',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_gri_5.png?v=1716187998',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_gri_6.jpg?v=1716187997',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_gri_7.jpg?v=1716187997'
-        },
-        'grey-magenta': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_ciclam_1.png?v=1716189006',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_ciclam_2.jpg?v=1716189005',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_ciclam_3.png?v=1716189006',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_ciclam_7.jpg?v=1716189443',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_ciclam_5.png?v=1716189006',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_ciclam_6.jpg?v=1716189006',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_ciclam_4.jpg?v=1716189005',
-        },
-        'grey-orange': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_portocalie_1.png?v=1716189307',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_portocalie_2.jpg?v=1716189307',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_portocalie_3.png?v=1716189307',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_portocalie_4.jpg?v=1716189306',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_portocalie_5.png?v=1716189308',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_portocalie_6.jpg?v=1716189307',
-            'seventhImage': false
-        },
-        'grey-purple': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_mov_1.png?v=1716189645',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_mov_2.jpg?v=1716189645',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_mov_3.png?v=1716189646',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_mov_4.jpg?v=1716189644',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_mov_5.png?v=1716189646',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_mov_6.jpg?v=1716189645',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_mov_7.jpg?v=1716189645'
-        },
-        'grey-red': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_rosie_1.png?v=1716190052',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_rosie_2.jpg?v=1716190053',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_rosie_3.png?v=1716190053',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_rosie_4.jpg?v=1716190052',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_rosie_5.png?v=1716190053',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_rosie_6.jpg?v=1716190052',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_rosie_7.jpg?v=1716190052'
-        },
-        'grey-white': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_alba_1.png?v=1716213748',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_alba_2.jpg?v=1716190303',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_alba_3.png?v=1716213748',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_alba_4.jpg?v=1716190303',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_alba_7.jpg?v=1716190303',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_alba_6.jpg?v=1716190303',
-            'seventhImage': false
-        },
-        'grey-yellow': {
-            'firstImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_galbena_1.png?v=1716190574',
-            'secondImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_galbena_2.jpg?v=1716190573',
-            'thirdImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_galbena_3.png?v=1716190575',
-            'fourthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_galbena_4.jpg?v=1716190573',
-            'fifthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_galbena_5.png?v=1716190575',
-            'sixthImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_galbena_6.jpg?v=1716190574',
-            'seventhImage': 'https://cdn.shopify.com/s/files/1/0324/8091/9684/files/mocheta_auto_gri_margine_galbena_7.jpg?v=1716190574'
-        }
-    },
-    prices: {
-        basePrice: 198,
-        borderColor: 24,
-        embroidery: {
-            1: 50,
-            2: 90,
-            3: 130,
-            4: 160,
-            5: 223,
-            6: 260,
-            7: 302,
-            8: 320
-        },
-        threadColor: {
-            'simple': 14,
-            'double': 24
-        },
-        standard: [
-            {'baseColor': 'black', 'borderColor': 'black', 'threadType': 'simple', 'threadColor': 'black', 'reinforcement': 'no', 'configuration': 'full'},
-            {'baseColor': 'grey', 'borderColor': 'grey', 'threadType': 'simple', 'threadColor': 'grey', 'reinforcement': 'no', 'configuration': 'full'},
-            {'baseColor': 'beige', 'borderColor': 'beige', 'threadType': 'simple', 'threadColor': 'beige', 'reinforcement': 'no', 'configuration': 'full'},
-        ]
-    },
+    images: {},
+    prices: {},
+    baseTitle: '',
     optionTextValueMappings: {
         'baseColor': 'colors',
         'borderColor': 'colors',
@@ -411,10 +155,23 @@ const PTCProductBuilder = {
             await this.updateOptionsBySettings();
         }
         this.preloadImages();
-        this.embroideryBuilder.init();
+        if (this.isActiveSetting('embroidery')) {
+            this.embroideryBuilder.init();
+        }
     },
     applyConfig: function (config) {
-        const configKeys = ['apiURL', 'fetchOptionURL', 'embroiderySaveImageURL', 'embroideryImagesURL', 'embroideryIconsURL', 'storageKey'];
+        const configKeys = [
+            'apiURL',
+            'fetchOptionURL',
+            'embroiderySaveImageURL',
+            'embroideryImagesURL',
+            'embroideryIconsURL',
+            'storageKey',
+            'images',
+            'prices',
+            'activeSettings',
+            'baseTitle'
+        ];
         for (const key of configKeys) {
             if (config.hasOwnProperty(key)) {
                 this[key] = config[key];
@@ -422,28 +179,43 @@ const PTCProductBuilder = {
         }
     },
     addListeners: function () {
-        document.querySelectorAll('input[name="baseColor"]').forEach(input => {
-            input.addEventListener('input', this.changeOption);
-        });
-        document.querySelectorAll('input[name="borderColor"]').forEach(input => {
-            input.addEventListener('input', this.changeOption);
-        });
-        document.querySelectorAll('input[name="threadType"]').forEach(input => {
-            input.addEventListener('input', this.changeOption);
-        });
-        document.querySelectorAll('input[name="threadColor"]').forEach(input => {
-            input.addEventListener('input', this.changeOption);
-        });
-        document.querySelectorAll('input[name="reinforcement"]').forEach(input => {
-            input.addEventListener('input', this.changeOption);
-        });
-        document.querySelectorAll('input[name="configuration"]').forEach(input => {
-            input.addEventListener('input', this.changeOption);
-        });
-        document.querySelectorAll('input[name="embroidery"]').forEach(input => {
-            input.addEventListener('input', this.changeOption);
-            input.addEventListener('input', this.toggleEmbroideryBuilder);
-        });
+        if (this.isActiveSetting('baseColor')) {
+            document.querySelectorAll('input[name="baseColor"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
+            });
+        }
+        if (this.isActiveSetting('borderColor')) {
+            document.querySelectorAll('input[name="borderColor"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
+            });
+        }
+        if (this.isActiveSetting('threadType')) {
+            document.querySelectorAll('input[name="threadType"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
+            });
+        }
+        if (this.isActiveSetting('threadColor')) {
+            document.querySelectorAll('input[name="threadColor"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
+            });
+        }
+        if (this.isActiveSetting('reinforcement')) {
+            document.querySelectorAll('input[name="reinforcement"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
+            });
+        }
+        if (this.isActiveSetting('configuration')) {
+            document.querySelectorAll('input[name="configuration"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
+            });
+        }
+        if (this.isActiveSetting('embroidery')) {
+            document.querySelectorAll('input[name="embroidery"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
+                input.addEventListener('input', this.toggleEmbroideryBuilder);
+            });
+        }
+
         document.getElementById('carBrand').addEventListener('change', this.changeBrand);
         document.getElementById('carModel').addEventListener('change', this.changeModel);
         document.getElementById('carSubmodel').addEventListener('change', this.changeSubmodel);
@@ -479,7 +251,9 @@ const PTCProductBuilder = {
         this.storage.saveSettings(this.currentSettings);
         this.updateImages();
         this.updatePrice();
-        this.embroideryBuilder.updateCanvasByCurrentSettings();
+        if (this.isActiveSetting('embroidery')) {
+            this.embroideryBuilder.updateCanvasByCurrentSettings();
+        }
     },
     updateCarSettings: function (name, value) {
         this.currentSettings[name] = value;
@@ -487,6 +261,7 @@ const PTCProductBuilder = {
     },
     updateOptionsBySettings: async function () {
         for (const setting in this.currentSettings) {
+            if (!this.isActiveSetting(setting)) continue;
             const value = this.currentSettings[setting];
             if (setting === 'carBrand' || setting === 'carModel' || setting === 'carSubmodel') {
                 this.carSettings[setting] = value;
@@ -499,10 +274,12 @@ const PTCProductBuilder = {
             }
             this.setOptionTextValue(setting, value);
         }
-        if (this.currentSettings.embroidery === 'yes') {
-            this.toggleEmbroideryBuilder('block');
-        } else {
-            this.toggleEmbroideryBuilder('none');
+        if (this.isActiveSetting('embroidery')) {
+            if (this.currentSettings.embroidery === 'yes') {
+                this.toggleEmbroideryBuilder('block');
+            } else {
+                this.toggleEmbroideryBuilder('none');
+            }
         }
         this.updateImages();
         this.updatePrice();
@@ -570,6 +347,7 @@ const PTCProductBuilder = {
         return Boolean(this.prices.standard.find(obj => {
             for (const key in this.currentSettings) {
                 if (['carBrand', 'carModel', 'carSubmodel', 'embroidery'].includes(key)) continue;
+                if (!this.isActiveSetting(key)) continue;
                 if (this.currentSettings.hasOwnProperty(key) && this.currentSettings[key] !== obj[key]) {
                     return false;
                 }
@@ -585,6 +363,7 @@ const PTCProductBuilder = {
             for (const key in this.currentSettings) {
                 if (['carBrand', 'carModel', 'carSubmodel', 'embroidery', '_odoo_attributes', 'version'].includes(key)) continue;
                 if (this.currentSettings.hasOwnProperty(key) && this.currentSettings[key] !== standardPrice[key]) {
+                    if (!this.isActiveSetting(key)) continue;
                     currentDiff.push(key);
                 }
             }
@@ -707,9 +486,10 @@ const PTCProductBuilder = {
         }
     },
     getProcessedTitleByCurrentSettings: function () {
+        const baseTitle = this.baseTitle;
         const brand = this.getSelectedOption('carBrand');
         const submodel = this.getSelectedOption('carSubmodel');
-        return `Covorase auto mocheta ${brand} ${submodel}`;
+        return `${baseTitle} ${brand} ${submodel}`;
     },
     preloadImages: async function () {
         const imagePromises = [];
@@ -780,9 +560,9 @@ const PTCProductBuilder = {
         xhr.send(formData);
     },
     getProperties: async function () {
-        const properties = this.currentSettings;
+        const properties = this.getProcessedCurrentSettings(this.currentSettings);
         properties['_odoo_attributes'] = this.getOdooProperties();
-        if (this.currentSettings.embroidery === 'yes') {
+        if (this.isActiveSetting('embroidery') && this.currentSettings.embroidery === 'yes') {
             const embroideryImages = await this.embroideryBuilder.saveImages();
             properties['_embroidery'] = embroideryImages;
             properties['_odoo_attributes'].push({
@@ -791,8 +571,15 @@ const PTCProductBuilder = {
                 value: this.embroideryBuilder.getEmbroideryItemsElements(embroideryImages)
             });
         }
-        debugger
         return properties;
+    },
+    getProcessedCurrentSettings: function (currentSettings) {
+        return Object.keys(currentSettings).reduce((acc, settingKey) => {
+            if (this.isActiveSetting(settingKey)) {
+                acc[settingKey] = currentSettings[settingKey];
+            }
+            return acc;
+        }, {});
     },
     getOdooProperties: function () {
         const properties = this.currentSettings;
@@ -815,7 +602,6 @@ const PTCProductBuilder = {
         return odooProperties;
     },
     validate: function () {
-        return true;
         const errorEls = {
             'carBrand': document.getElementById('carBrandError'),
             'carModel': document.getElementById('carModelError'),
@@ -832,6 +618,9 @@ const PTCProductBuilder = {
             }
         }
         return !hasError;
+    },
+    isActiveSetting: function (settingKey) {
+        return Boolean(this.activeSettings[settingKey] ?? false);
     },
     storage: {
         hasSettings: function () {
