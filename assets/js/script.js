@@ -307,11 +307,22 @@ const PTCProductBuilder = {
         const settings = this.currentSettings;
         const images = this.images[`${settings.baseColor}-${settings.borderColor}`] ?? false;
         if (images) {
-            document.getElementById('firstImage').src = this.resizeImage(images.firstImage, '_450x450_crop_center');
-            document.getElementById('secondImage').src = this.resizeImage(images.secondImage, '_450x450_crop_center');
-            document.getElementById('thirdImage').src = this.resizeImage(images.thirdImage, '_450x450_crop_center');
-            document.getElementById('fourthImage').src = this.resizeImage(images.fourthImage, '_450x450_crop_center');
-            document.getElementById('fifthImage').src = this.resizeImage(images.fifthImage, '_450x450_crop_center');
+            if (images.firstImage) {
+                document.getElementById('firstImage').src = this.resizeImage(images.firstImage, '_450x450_crop_center');
+            }
+            if (images.secondImage) {
+                document.getElementById('secondImage').src = this.resizeImage(images.secondImage, '_450x450_crop_center');
+            }
+            if (images.thirdImage) {
+                document.getElementById('thirdImage').src = this.resizeImage(images.thirdImage, '_450x450_crop_center');
+            }
+            if (images.fourthImage) {
+                document.getElementById('fourthImage').src = this.resizeImage(images.fourthImage, '_450x450_crop_center');
+            }
+            if (images.fifthImage) {
+                document.getElementById('fifthImage').src = this.resizeImage(images.fifthImage, '_450x450_crop_center');
+            }
+
             if( images.sixthImage === false){
                 document.getElementById('sixthImage').style.display = "none";
             }else{
