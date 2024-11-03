@@ -6,7 +6,14 @@ const PTCProductBuilder = {
     embroiderySaveImageURL: null,
     embroideryImagesURL: null,
     embroideryIconsURL: null,
+    embroideryItemKeys: ['item-1', 'item-2', 'item-3', 'item-4'],
     storageKey: null,
+    activeCarSettings: {
+        'carBrand': true,
+        'carModel': true,
+        'carSubmodel': true,
+        'carSubmodelTrunk': false
+    },
     activeSettings: {
         'baseColor': true,
         'borderColor': true,
@@ -45,7 +52,8 @@ const PTCProductBuilder = {
     carSettings: {
         carBrand: null,
         carModel: null,
-        carSubmodel: null
+        carSubmodel: null,
+        carSubmodelTrunk: null
     },
     mappings: {
         colors: {
@@ -169,8 +177,10 @@ const PTCProductBuilder = {
             'storageKey',
             'images',
             'prices',
+            'activeCarSettings',
             'activeSettings',
-            'baseTitle'
+            'baseTitle',
+            'embroideryItemKeys'
         ];
         for (const key of configKeys) {
             if (config.hasOwnProperty(key)) {
@@ -216,9 +226,18 @@ const PTCProductBuilder = {
             });
         }
 
-        document.getElementById('carBrand').addEventListener('change', this.changeBrand);
-        document.getElementById('carModel').addEventListener('change', this.changeModel);
-        document.getElementById('carSubmodel').addEventListener('change', this.changeSubmodel);
+        if (this.isActiveCarSetting('carBrand')) {
+            document.getElementById('carBrand').addEventListener('change', this.changeBrand);
+        }
+        if (this.isActiveCarSetting('carModel')) {
+            document.getElementById('carModel').addEventListener('change', this.changeModel);
+        }
+        if (this.isActiveCarSetting('carSubmodel')) {
+            document.getElementById('carSubmodel').addEventListener('change', this.changeSubmodel);
+        }
+        if (this.isActiveCarSetting('carSubmodelTrunk')) {
+            document.getElementById('carSubmodelTrunk').addEventListener('change', this.changeSubmodelTrunk);
+        }
 
         document.getElementById('submitProductBuilder').addEventListener('click', this.submit);
     },
@@ -377,23 +396,32 @@ const PTCProductBuilder = {
         PTCProductBuilder.carSettings.carBrand = this.value;
         PTCProductBuilder.carSettings.carModel = null;
         PTCProductBuilder.carSettings.carSubmodel = null;
+        PTCProductBuilder.carSettings.carSubmodelTrunk = null;
         await PTCProductBuilder.updateCarSelect('carBrand');
         PTCProductBuilder.updateCarSettings(this.name, this.value);
     },
     changeModel: async function () {
         PTCProductBuilder.carSettings.carModel = this.value;
         PTCProductBuilder.carSettings.carSubmodel = null;
+        PTCProductBuilder.carSettings.carSubmodelTrunk = null;
         await PTCProductBuilder.updateCarSelect('carModel');
         PTCProductBuilder.updateCarSettings(this.name, this.value);
     },
     changeSubmodel: async function () {
         PTCProductBuilder.carSettings.carSubmodel = this.value;
+        PTCProductBuilder.carSettings.carSubmodelTrunk = null;
         await PTCProductBuilder.updateCarSelect('carSubmodel');
+        PTCProductBuilder.updateCarSettings(this.name, this.value);
+    },
+    changeSubmodelTrunk: async function () {
+        PTCProductBuilder.carSettings.carSubmodelTrunk = this.value;
+        await PTCProductBuilder.updateCarSelect('carSubmodelTrunk');
         PTCProductBuilder.updateCarSettings(this.name, this.value);
     },
     updateCarSelect: async function (type) {
         const modelSelect = document.getElementById('carModel');
         const submodelSelect = document.getElementById('carSubmodel');
+        const submodelTrunkSelect = document.getElementById('carSubmodelTrunk');
         const titleEl = document.getElementById('productTitle');
 
         titleEl.innerText = '';
@@ -409,6 +437,13 @@ const PTCProductBuilder = {
             const submodelBlankOption = document.createElement('option');
             submodelBlankOption.textContent = 'Selecteaza submodel';
             submodelSelect.appendChild(submodelBlankOption);
+
+            if (this.isActiveCarSetting('carSubmodelTrunk')) {
+                submodelTrunkSelect.innerHTML = '';
+                const submodelTrunkBlankOption = document.createElement('option');
+                submodelTrunkBlankOption.textContent = 'Selecteaza tip portbagaj';
+                submodelTrunkSelect.appendChild(submodelTrunkBlankOption);
+            }
         }
         if (type === 'carModel') {
             submodelSelect.innerHTML = '';
@@ -416,22 +451,46 @@ const PTCProductBuilder = {
             const submodelBlankOption = document.createElement('option');
             submodelBlankOption.textContent = 'Selecteaza submodel';
             submodelSelect.appendChild(submodelBlankOption);
+
+            if (this.isActiveCarSetting('carSubmodelTrunk')) {
+                submodelTrunkSelect.innerHTML = '';
+                const submodelTrunkBlankOption = document.createElement('option');
+                submodelTrunkBlankOption.textContent = 'Selecteaza tip portbagaj';
+                submodelTrunkSelect.appendChild(submodelTrunkBlankOption);
+            }
         }
 
         if (type === 'carSubmodel') {
             titleEl.innerText = this.getProcessedTitleByCurrentSettings();
+
+            if (this.isActiveCarSetting('carSubmodelTrunk')) {
+                submodelTrunkSelect.innerHTML = '';
+                const submodelTrunkBlankOption = document.createElement('option');
+                submodelTrunkBlankOption.textContent = 'Selecteaza tip portbagaj';
+                submodelTrunkSelect.appendChild(submodelTrunkBlankOption);
+            }
         }
 
-        if (type === 'carBrand' || type === 'carModel') {
+        if (type === 'carBrand' || type === 'carModel' || type === 'carSubmodel') {
             const options = await PTCProductBuilder.getCarOptions();
+            debugger
+
             options.forEach(item => {
                 const option = document.createElement('option');
                 option.value = item.id;
                 option.textContent = item.name;
-                if (type === 'carBrand') {
-                    modelSelect.appendChild(option);
-                } else {
-                    submodelSelect.appendChild(option);
+                switch (type) {
+                    case "carBrand":
+                        modelSelect.appendChild(option);
+                        break;
+                    case "carModel":
+                        submodelSelect.appendChild(option);
+                        break;
+                    case "carSubmodel":
+                        if (this.isActiveCarSetting('carSubmodelTrunk')) {
+                            submodelTrunkSelect.appendChild(option);
+                        }
+                        break;
                 }
             });
         }
@@ -606,10 +665,12 @@ const PTCProductBuilder = {
             'carBrand': document.getElementById('carBrandError'),
             'carModel': document.getElementById('carModelError'),
             'carSubmodel': document.getElementById('carSubmodelError'),
+            'carSubmodelTrunk': document.getElementById('carSubmodelTrunkError'),
         }
 
         let hasError = false;
         for (const key in this.carSettings) {
+            if (!this.isActiveCarSetting(key)) continue;
             if (this.carSettings[key] === null) {
                 if (!hasError) hasError = true;
                 errorEls[key].innerText = 'Selecteaza o optiune';
@@ -618,6 +679,9 @@ const PTCProductBuilder = {
             }
         }
         return !hasError;
+    },
+    isActiveCarSetting: function (settingKey) {
+        return Boolean(this.activeCarSettings[settingKey] ?? false);
     },
     isActiveSetting: function (settingKey) {
         return Boolean(this.activeSettings[settingKey] ?? false);
@@ -641,12 +705,260 @@ const PTCProductBuilder = {
         }
     },
     embroideryBuilder: {
-        itemKeys: ['item-1', 'item-2', 'item-3', 'item-4'],
+        itemKeys: [],
+        coordinatedAdjustments: {
+            'item-1': {
+                'text': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': -55,
+                        'rotation': {
+                            'no': -8,
+                            'yes': -188
+                        }
+                    },
+                    'center-left': {
+                        'x': 130,
+                        'y': 80,
+                        'rotation': {
+                            'no': 84,
+                            'yes': -98
+                        }
+                    },
+                    'center-right': {
+                        'x': 355,
+                        'y': 10,
+                        'rotation': {
+                            'no': 80,
+                            'yes': -98
+                        }
+                    }
+                },
+                'image': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': 0,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-left': {
+                        'x': -70,
+                        'y': 80,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-right': {
+                        'x': -80,
+                        'y': 30,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+
+                }
+            },
+            'item-2': {
+                'text': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': -55,
+                        'rotation': {
+                            'no': -8,
+                            'yes': -188
+                        }
+                    },
+                    'center-left': {
+                        'x': 130,
+                        'y': 80,
+                        'rotation': {
+                            'no': 84,
+                            'yes': -98
+                        }
+                    },
+                    'center-right': {
+                        'x': 355,
+                        'y': 10,
+                        'rotation': {
+                            'no': 80,
+                            'yes': -98
+                        }
+                    }
+                },
+                'image': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': 0,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-left': {
+                        'x': -70,
+                        'y': 80,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-right': {
+                        'x': -80,
+                        'y': 30,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+
+                }
+            },
+            'item-3': {
+                'text': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': -55,
+                        'rotation': {
+                            'no': -8,
+                            'yes': -188
+                        }
+                    },
+                    'center-left': {
+                        'x': 130,
+                        'y': 80,
+                        'rotation': {
+                            'no': 84,
+                            'yes': -98
+                        }
+                    },
+                    'center-right': {
+                        'x': 355,
+                        'y': 10,
+                        'rotation': {
+                            'no': 80,
+                            'yes': -98
+                        }
+                    }
+                },
+                'image': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': 0,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-left': {
+                        'x': -70,
+                        'y': 80,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-right': {
+                        'x': -80,
+                        'y': 30,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+
+                }
+            },
+            'item-4': {
+                'text': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': -55,
+                        'rotation': {
+                            'no': -8,
+                            'yes': -188
+                        }
+                    },
+                    'center-left': {
+                        'x': 130,
+                        'y': 80,
+                        'rotation': {
+                            'no': 84,
+                            'yes': -98
+                        }
+                    },
+                    'center-right': {
+                        'x': 355,
+                        'y': 10,
+                        'rotation': {
+                            'no': 80,
+                            'yes': -98
+                        }
+                    }
+                },
+                'image': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': 0,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-left': {
+                        'x': -70,
+                        'y': 80,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-right': {
+                        'x': -80,
+                        'y': 30,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+
+                }
+            },
+            'item-5': {
+                'text': {
+                    'center-bottom': {
+                        'x': 0,
+                        'y': -100,
+                        'rotation': {
+                            'no': 0,
+                            'yes': -180
+                        }
+                    },
+                    'center-left': {
+                        'x': 120,
+                        'y': -50,
+                        'rotation': {
+                            'no': 90,
+                            'yes': -90
+                        }
+                    },
+                    'center-right': {
+                        'x': 375,
+                        'y': -50,
+                        'rotation': {
+                            'no': 90,
+                            'yes': -90
+                        }
+                    }
+                },
+                'image': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': 0,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-left': {
+                        'x': -70,
+                        'y': 80,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-right': {
+                        'x': -80,
+                        'y': 30,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+
+                }
+            }
+        },
         itemKeyMappings: {
             'item-1': {key: 'covoras_sofer', title: 'Covoras sofer'},
             'item-2': {key: 'covoras_pasager', title: 'Covoras pasager'},
             'item-3': {key: 'covoras_stanga_spate', title: 'Covoras stanga spate'},
-            'item-4': {key: 'covoras_dreapta_spate', title: 'Covoras dreapta spate'}
+            'item-4': {key: 'covoras_dreapta_spate', title: 'Covoras dreapta spate'},
+            'item-5': {key: 'tavita_portbagaj', title: 'Tavita portbagaj'}
         },
         svgs: {
             'item-1': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 2500">
@@ -781,6 +1093,19 @@ const PTCProductBuilder = {
           <path id="svgFirstThreadColor" data-name="Ata 1" d="M830.06,584.662c-16.567-90.119-40.485-207.973-37.073-283.552s3.748-110.589,124.325-135.152,214.258-34.827,301.908-49.284,262.5-45.607,315.78-52.3c45.62-5.733,153.04-39.609,170.63,87.766s21.64,140.381,22.22,168.929,6.6,68.646-44.92,113.364c-55.51,48.178-67.41,71.288-74.6,95.554-12.87,43.413-17.99,108.007,105.72,107.871,39.3-.043,108.84-12.268,145.92-5.9,20.24,3.475,69.35,5.457,77.56,104.524,8.3,100.266,6.7,154.512-7.03,229.639s-27.91,162.944-21.17,235.614,31.86,212.56,59.2,295.74,35.56,131.73,78.35,200.12,96.44,140.96,116.54,204.75c15.98,50.7,33.53,162.29,32.58,214.9s-2.34,131.63-128.26,146.79-337.15,41.74-476.55,58.22-416.02,56.72-515.14,71.55-262.656,41.16-301.917,46.79-156.62,36.35-187.329-160.28-47.179-342.72-64.733-483.15-47.263-330.95-61.2-436.72c-39.96-303.27-93.764-508.115,102.172-532.776C763.23,802.468,874.563,826.737,830.06,584.662Z"/>
           <path id="svgSecondThreadColor" data-name="Ata 2" d="M841.6,591.692c-16.567-90.12-38.985-203.474-35.573-279.052s-7.793-111.59,112.784-136.153S1131.57,143.161,1219.22,128.7,1481.72,83.1,1535,76.4c45.62-5.733,143.5-41.609,161.1,85.765s19.64,137.382,20.21,165.929-4.44,67.646-55.97,112.364c-55.51,48.179-58.86,73.288-66.05,97.554-12.87,43.414-3.95,111.012,119.76,110.875,39.3-.043,108.84-12.267,145.92-5.9,20.24,3.475,59.32,2.457,67.52,101.524,8.31,100.265,4.7,153.508-9.03,228.635s-25.9,162.944-19.16,235.6,32.86,212.57,60.2,295.75,36.56,131.73,79.36,200.12,96.43,140.96,116.53,204.75c15.98,50.7,28.99,160.78,29.07,213.4,0.06,37.56,1.67,114.56-119.22,130.72-125.72,16.8-334.65,38.75-474.05,55.22s-416.02,58.73-515.14,73.56-262.656,41.66-301.917,47.29-143.57,34.34-175.284-145.22c-34.614-195.98-48.183-339.72-65.737-480.16s-44.263-330.94-58.2-436.71c-39.96-303.27-100.778-504.116,95.158-528.776C770.258,813.5,886.1,833.766,841.6,591.692Z"/>
         </svg>`,
+            'item-5': `<svg xmlns="http://www.w3.org/2000/svg" width="2500" height="2500" viewBox="0 0 2500 2500">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ab9185;
+        stroke: #000;
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M146,1459s29.329-46.08,65-92c25.483-32.81,51.954-54.03,87-70,33.838-15.42,49.285-44.51,53.94-76.09,12.489-84.73,10.112-112.56,40.06-168.91,29.618-55.725,59.557-131.182,72-196s27.475-132.2,12-262c-14.154-118.72-22.062-186.931-25-205-2.975-18.3-8.525-88.7,105-90s291.975-3.7,433-5,479.47-4.2,616,0,352.99,4.124,373,5c16.02,0.7,98.97,17.8,85,106-18.52,116.857-40.53,285.3-37,337s17.82,189.642,34,231,58.32,109.64,61,144,15.83,128.49,29,153c13.13,24.42,41.32,38.52,53,39s36.32,8.52,46,20,72.82,77.52,86,97,22.82,26.52,27,53,33.82,206.02,37,264,7.32,86.02,5,103-5.18,34.02-35,56-33.18,26.02-40,46-16.18,51.52-60,63c-42.13,11.04-32.82,3.75-44,5-13.32,1.48-40.68,11-85,11s-50.18-12-72-12-63.68,26.02-83,32-95.68,11.02-165,18-87.69,2.5-143,31c-55.25,28.47-117.3,70.51-187,87-81.3,19.23-150.69,23.9-221,25-72.2,1.13-147.63-5.32-250-27-79.8-16.9-100.135-26.48-136.226-45.15C801.76,2093.94,768.567,2081.01,713,2077c-56.353-4.07-150.181-11.48-185-15-20.119-2.03-39.681-13.48-65-28s-47.181-11.48-68-7-43.7,5.45-108-7c-85.319-16.52-107.989-14.78-126-71-12.819-40.02-19.181-32.48-34-47s-33.1-16.37-31-75C98.181,1765.98,129.5,1516.5,146,1459Z"/>
+</svg>`
         },
         canvas: {
             'item-1': {
@@ -814,21 +1139,36 @@ const PTCProductBuilder = {
                 'modal': {
                     'containerId': 'embroideryModalImageItem4'
                 }
+            },
+            'item-5': {
+                'page': {
+                    'containerId': 'embroideryImageItem5'
+                },
+                'modal': {
+                    'containerId': 'embroideryModalImageItem5'
+                }
             }
         },
         init: function () {
+            this.itemKeys = PTCProductBuilder.embroideryItemKeys;
             this.loadStages();
             this.updateCanvasByCurrentSettings();
             this.addListeners();
             this.initModals();
         },
         addListeners: function () {
-            document.getElementById('embroideryEditAllModalBtn').addEventListener('click', function () {
-                PTCProductBuilder.embroideryBuilder.showEmbroideryEditModal('all');
-            });
-            document.getElementById('embroideryEditCustomModalBtn').addEventListener('click', function () {
-                PTCProductBuilder.embroideryBuilder.showEmbroideryEditModal('custom');
-            });
+            const embroideryEditAllModalBtn = document.getElementById('embroideryEditAllModalBtn');
+            if (embroideryEditAllModalBtn) {
+                embroideryEditAllModalBtn.addEventListener('click', function () {
+                    PTCProductBuilder.embroideryBuilder.showEmbroideryEditModal('all');
+                });
+            }
+            const embroideryEditCustomModalBtn = document.getElementById('embroideryEditCustomModalBtn');
+            if (embroideryEditCustomModalBtn) {
+                document.getElementById('embroideryEditCustomModalBtn').addEventListener('click', function () {
+                    PTCProductBuilder.embroideryBuilder.showEmbroideryEditModal('custom');
+                });
+            }
             document.getElementById('embroideryElementType').querySelectorAll('.option-value.box input[type="radio"]').forEach(checkbox => {
                 checkbox.addEventListener('change', PTCProductBuilder.embroideryBuilder.changeElementType)
             });
@@ -934,16 +1274,24 @@ const PTCProductBuilder = {
             const svgDocument = new DOMParser().parseFromString(svg, 'image/svg+xml');
 
             const svgBaseColorEl = svgDocument.getElementById('svgBaseColor');
-            svgBaseColorEl.style.fill = settings.baseColor;
+            if (svgBaseColorEl) {
+                svgBaseColorEl.style.fill = settings.baseColor;
+            }
 
             const svgBorderColorEl = svgDocument.getElementById('svgBorderColor');
-            svgBorderColorEl.style.stroke = settings.borderColor;
+            if (svgBorderColorEl) {
+                svgBorderColorEl.style.stroke = settings.borderColor;
+            }
 
             const svgFirstThreadColorEl = svgDocument.getElementById('svgFirstThreadColor');
-            svgFirstThreadColorEl.style.stroke = settings.firstThreadColor;
+            if (svgFirstThreadColorEl) {
+                svgFirstThreadColorEl.style.stroke = settings.firstThreadColor;
+            }
 
             const svgSecondThreadColorEl = svgDocument.getElementById('svgSecondThreadColor');
-            svgSecondThreadColorEl.style.stroke = settings.secondThreadColor;
+            if (svgSecondThreadColorEl) {
+                svgSecondThreadColorEl.style.stroke = settings.secondThreadColor;
+            }
 
             return new XMLSerializer().serializeToString(svgDocument);
         },
@@ -959,12 +1307,12 @@ const PTCProductBuilder = {
             PTCProductBuilder.embroideryBuilder.afterOpenEmbroideryEditModal(type, specificItemKey);
         },
         beforeOpenEmbroideryEditModal: function (type, specificItemKey) {
-            if (type !== 'all' || specificItemKey) type = specificItemKey ?? 'item-1';
+            if (type !== 'all' || specificItemKey) type = specificItemKey ?? this.itemKeys[0];
             document.getElementById('textItem').value = type;
             document.getElementById('iconItem').value = type;
             document.getElementById('embroideryItem').style.display = (type === 'all') ? 'none' : 'block';
-            this.applyItemSettings(specificItemKey ?? 'item-1');
-            this.displayModalCanvasByItem(specificItemKey ?? 'item-1');
+            this.applyItemSettings(specificItemKey ?? this.itemKeys[0]);
+            this.displayModalCanvasByItem(specificItemKey ?? this.itemKeys[0]);
             this.updateEmbroideryEditModal(type);
         },
         afterOpenEmbroideryEditModal: function (type, specificItemKey) {
@@ -1025,21 +1373,22 @@ const PTCProductBuilder = {
             const stage = this.canvas[itemKey][location].stage;
             const layer = this.canvas[itemKey][location].layer;
 
+            const coordinatedAdjustments = this.coordinatedAdjustments[itemKey]['text'];
             const positions = {
                 'center-bottom': {
-                    x: stage.width() / 2 + 20,
-                    y: stage.height() - 55,
-                    rotation: params.flip === 'no' ? -8 : -188,
+                    x: stage.width() / 2 + coordinatedAdjustments['center-bottom'].x,
+                    y: stage.height() + coordinatedAdjustments['center-bottom'].y,
+                    rotation: coordinatedAdjustments['center-bottom']['rotation'][params.flip],
                 },
                 'center-left': {
-                    x: 130,
-                    y: stage.height() / 2 + 80,
-                    rotation: params.flip === 'no' ? 84 : -98,
+                    x: coordinatedAdjustments['center-left'].x,
+                    y: stage.height() / 2 + coordinatedAdjustments['center-left'].y,
+                    rotation: coordinatedAdjustments['center-left']['rotation'][params.flip],
                 },
                 'center-right': {
-                    x: 355,
-                    y: stage.height() / 2 + 10,
-                    rotation: params.flip === 'no' ? 80 : -98,
+                    x: coordinatedAdjustments['center-right'].x,
+                    y: stage.height() / 2 + coordinatedAdjustments['center-right'].y,
+                    rotation: coordinatedAdjustments['center-right']['rotation'][params.flip],
                 }
             };
 
@@ -1125,24 +1474,26 @@ const PTCProductBuilder = {
                 height: 150
             };
 
+            const coordinatedAdjustments = this.coordinatedAdjustments[itemKey]['image'];
+
             const positions = {
                 'center-bottom': {
-                    x: (stage.width() - imgSize.width) / 2 + 20,
-                    y: stage.height() - imgSize.height,
-                    offsetX: imgSize.width / 2,
-                    offsetY: imgSize.height / 2
+                    x: (stage.width() - imgSize.width) / 2 + coordinatedAdjustments['center-bottom'].x,
+                    y: stage.height() - imgSize.height + coordinatedAdjustments['center-bottom'].y,
+                    offsetX: imgSize.width / 2 + coordinatedAdjustments['center-bottom'].offsetX,
+                    offsetY: imgSize.height / 2 + coordinatedAdjustments['center-bottom'].offsetY
                 },
                 'center-left': {
-                    x: imgSize.height - 70,
-                    y: (stage.height() - imgSize.width) / 2 + 80,
-                    offsetX: imgSize.width / 2,
-                    offsetY: imgSize.height / 2
+                    x: imgSize.height + coordinatedAdjustments['center-left'].x,
+                    y: (stage.height() - imgSize.width) / 2 + coordinatedAdjustments['center-left'].y,
+                    offsetX: imgSize.width / 2 + coordinatedAdjustments['center-left'].offsetX,
+                    offsetY: imgSize.height / 2 + coordinatedAdjustments['center-left'].offsetY
                 },
                 'center-right': {
-                    x: (stage.width() - imgSize.width) - 80,
-                    y: (stage.height() - imgSize.width) / 2 + 30,
-                    offsetX: imgSize.width / 2,
-                    offsetY: imgSize.height / 2
+                    x: (stage.width() - imgSize.width) + coordinatedAdjustments['center-right'].x,
+                    y: (stage.height() - imgSize.width) / 2 + coordinatedAdjustments['center-right'].y,
+                    offsetX: imgSize.width / 2 + coordinatedAdjustments['center-right'].offsetX,
+                    offsetY: imgSize.height / 2 + coordinatedAdjustments['center-right'].offsetY
                 }
             };
 
