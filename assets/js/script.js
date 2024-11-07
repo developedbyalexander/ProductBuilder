@@ -484,7 +484,13 @@ const PTCProductBuilder = {
 
         if (type === 'carBrand' || type === 'carModel' || type === 'carSubmodel') {
             const options = await PTCProductBuilder.getCarOptions();
-            debugger
+
+            if (type === 'carSubmodel' && this.isActiveCarSetting('carSubmodelTrunk')) {
+                if (options.length === 0) {
+                    this.carSettings.carSubmodelTrunk = '';
+                }
+                submodelTrunkSelect.style.display = options.length === 0 ? 'none' : 'block'
+            }
 
             options.forEach(item => {
                 const option = document.createElement('option');

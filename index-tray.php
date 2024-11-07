@@ -208,6 +208,51 @@
                                     </label>
                                 </div>
                             </div>
+                            <div class="option" id="threadColor">
+                                <p class="option-title">Culoare ata: <span class="value">Negru</span></p>
+                                <div class="option-values">
+                                    <label class="option-value color black">
+                                        <input type="radio" name="threadColor" value="black" checked>
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color blue">
+                                        <input type="radio" name="threadColor" value="blue">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color purple">
+                                        <input type="radio" name="threadColor" value="purple">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color yellow">
+                                        <input type="radio" name="threadColor" value="yellow">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color white">
+                                        <input type="radio" name="threadColor" value="white">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color magenta">
+                                        <input type="radio" name="threadColor" value="magenta">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color grey">
+                                        <input type="radio" name="threadColor" value="grey">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color red">
+                                        <input type="radio" name="threadColor" value="red">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color orange">
+                                        <input type="radio" name="threadColor" value="orange">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color beige">
+                                        <input type="radio" name="threadColor" value="beige">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                         <div class="gX gMX ">
                             <div class="c s12 m12 l12">
@@ -328,14 +373,6 @@
                                                                     <label class="option-value box">
                                                                         <input type="radio" name="position" value="center-bottom" checked>
                                                                         <span class="box-text">Jos</span>
-                                                                    </label>
-                                                                    <label class="option-value box">
-                                                                        <input type="radio" name="position" value="center-left">
-                                                                        <span class="box-text">Stanga</span>
-                                                                    </label>
-                                                                    <label class="option-value box">
-                                                                        <input type="radio" name="position" value="center-right">
-                                                                        <span class="box-text">Dreapta</span>
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -922,12 +959,22 @@
                         "7": 302,
                         "8": 320
                     },
+                    "threadColor": {
+                        "simple": 14,
+                        "double": 24
+                    },
+                },
+                "activeCarSettings": {
+                    'carBrand': true,
+                    'carModel': true,
+                    'carSubmodel': true,
+                    'carSubmodelTrunk': true
                 },
                 "activeSettings": {
                     "baseColor": true,
                     "borderColor": true,
                     "threadType": false,
-                    "threadColor": false,
+                    "threadColor": true,
                     "reinforcement": false,
                     "configuration": false,
                     "embroidery": true
