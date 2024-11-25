@@ -99,7 +99,7 @@ const PTCProductBuilder = {
     odooMappings: {
         'baseColor': {
             id: 2,
-            name: 'Culoare Mocheta',
+            name: 'Culoare baza',
             values: {
                 'black': 'negru',
                 'grey': 'gri',
@@ -673,6 +673,7 @@ const PTCProductBuilder = {
                     });
                 }
             }
+
         }
 
         return odooProperties;
