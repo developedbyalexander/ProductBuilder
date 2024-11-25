@@ -541,6 +541,7 @@ const PTCProductBuilder = {
     },
     getCarOptions: async function () {
         const urlParams = new URLSearchParams();
+        urlParams.append('type', this.storageKey);
         for (const key in this.carSettings) {
             if (this.carSettings[key] !== null) {
                 urlParams.append(key, this.carSettings[key]);
