@@ -12,7 +12,7 @@ const PTCProductBuilder = {
         'carBrand': true,
         'carModel': true,
         'carSubmodel': true,
-        'carSubmodelTrunk': false
+        'carSubmodelVariation': false
     },
     activeSettings: {
         'baseColor': true,
@@ -53,7 +53,7 @@ const PTCProductBuilder = {
         carBrand: null,
         carModel: null,
         carSubmodel: null,
-        carSubmodelTrunk: null
+        carSubmodelVariation: null
     },
     mappings: {
         colors: {
@@ -112,10 +112,10 @@ const PTCProductBuilder = {
             values: {
                 'black': 'negru',
                 'blue': 'albastru',
-                'purple': 'ciclam',
+                'purple': 'mov',
                 'yellow': 'galben',
                 'white': 'alb',
-                'magenta': 'mov',
+                'magenta': 'roz',
                 'grey': 'gri',
                 'red': 'rosu',
                 'orange': 'portocaliu',
@@ -136,10 +136,10 @@ const PTCProductBuilder = {
             values: {
                 'black': 'negru',
                 'blue': 'albastru',
-                'purple': 'ciclam',
+                'purple': 'mov',
                 'yellow': 'galben',
                 'white': 'alb',
-                'magenta': 'mov',
+                'magenta': 'roz',
                 'grey': 'gri',
                 'red': 'rosu',
                 'orange': 'portocaliu',
@@ -155,6 +155,7 @@ const PTCProductBuilder = {
             }
         },
     },
+    submodelVariationDescriptions: {},
     init: async function (config) {
         this.applyConfig(config);
         this.addListeners();
@@ -235,8 +236,8 @@ const PTCProductBuilder = {
         if (this.isActiveCarSetting('carSubmodel')) {
             document.getElementById('carSubmodel').addEventListener('change', this.changeSubmodel);
         }
-        if (this.isActiveCarSetting('carSubmodelTrunk')) {
-            document.getElementById('carSubmodelTrunk').addEventListener('change', this.changeSubmodelTrunk);
+        if (this.isActiveCarSetting('carSubmodelVariation')) {
+            document.getElementById('carSubmodelVariation').addEventListener('change', this.changeSubmodelVariation);
         }
 
         document.getElementById('submitProductBuilder').addEventListener('click', this.submit);
@@ -317,10 +318,16 @@ const PTCProductBuilder = {
                 document.getElementById('thirdImage').src = this.resizeImage(images.thirdImage, '_450x450_crop_center');
             }
             if (images.fourthImage) {
+                document.getElementById('fourthImage').style.display = "block";
                 document.getElementById('fourthImage').src = this.resizeImage(images.fourthImage, '_450x450_crop_center');
+            }else{
+                document.getElementById('fourthImage').style.display = "none";
             }
             if (images.fifthImage) {
+                document.getElementById('fifthImage').style.display = "block";
                 document.getElementById('fifthImage').src = this.resizeImage(images.fifthImage, '_450x450_crop_center');
+            }else{
+                document.getElementById('fifthImage').style.display = "none";
             }
 
             if( images.sixthImage === false){
@@ -407,32 +414,33 @@ const PTCProductBuilder = {
         PTCProductBuilder.carSettings.carBrand = this.value;
         PTCProductBuilder.carSettings.carModel = null;
         PTCProductBuilder.carSettings.carSubmodel = null;
-        PTCProductBuilder.carSettings.carSubmodelTrunk = null;
+        PTCProductBuilder.carSettings.carSubmodelVariation = null;
         await PTCProductBuilder.updateCarSelect('carBrand');
         PTCProductBuilder.updateCarSettings(this.name, this.value);
     },
     changeModel: async function () {
         PTCProductBuilder.carSettings.carModel = this.value;
         PTCProductBuilder.carSettings.carSubmodel = null;
-        PTCProductBuilder.carSettings.carSubmodelTrunk = null;
+        PTCProductBuilder.carSettings.carSubmodelVariation = null;
         await PTCProductBuilder.updateCarSelect('carModel');
         PTCProductBuilder.updateCarSettings(this.name, this.value);
     },
     changeSubmodel: async function () {
         PTCProductBuilder.carSettings.carSubmodel = this.value;
-        PTCProductBuilder.carSettings.carSubmodelTrunk = null;
+        PTCProductBuilder.carSettings.carSubmodelVariation = null;
         await PTCProductBuilder.updateCarSelect('carSubmodel');
         PTCProductBuilder.updateCarSettings(this.name, this.value);
     },
-    changeSubmodelTrunk: async function () {
-        PTCProductBuilder.carSettings.carSubmodelTrunk = this.value;
-        await PTCProductBuilder.updateCarSelect('carSubmodelTrunk');
+    changeSubmodelVariation: async function () {
+        PTCProductBuilder.carSettings.carSubmodelVariation = this.value;
+        await PTCProductBuilder.updateCarSelect('carSubmodelVariation');
         PTCProductBuilder.updateCarSettings(this.name, this.value);
+        PTCProductBuilder.setSubmodelVariationDescription(this.value);
     },
     updateCarSelect: async function (type) {
         const modelSelect = document.getElementById('carModel');
         const submodelSelect = document.getElementById('carSubmodel');
-        const submodelTrunkSelect = document.getElementById('carSubmodelTrunk');
+        const submodelVariationSelect = document.getElementById('carSubmodelVariation');
         const titleEl = document.getElementById('productTitle');
 
         titleEl.innerText = '';
@@ -449,11 +457,13 @@ const PTCProductBuilder = {
             submodelBlankOption.textContent = 'Selecteaza submodel';
             submodelSelect.appendChild(submodelBlankOption);
 
-            if (this.isActiveCarSetting('carSubmodelTrunk')) {
-                submodelTrunkSelect.innerHTML = '';
+            if (this.isActiveCarSetting('carSubmodelVariation')) {
+                submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = 'Selecteaza tip portbagaj';
-                submodelTrunkSelect.appendChild(submodelTrunkBlankOption);
+                submodelTrunkBlankOption.textContent = 'Selecteaza variatie';
+                submodelVariationSelect.appendChild(submodelTrunkBlankOption);
+                PTCProductBuilder.submodelVariationDescriptions = {};
+                PTCProductBuilder.setSubmodelVariationDescription();
             }
         }
         if (type === 'carModel') {
@@ -463,39 +473,46 @@ const PTCProductBuilder = {
             submodelBlankOption.textContent = 'Selecteaza submodel';
             submodelSelect.appendChild(submodelBlankOption);
 
-            if (this.isActiveCarSetting('carSubmodelTrunk')) {
-                submodelTrunkSelect.innerHTML = '';
+            if (this.isActiveCarSetting('carSubmodelVariation')) {
+                submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = 'Selecteaza tip portbagaj';
-                submodelTrunkSelect.appendChild(submodelTrunkBlankOption);
+                submodelTrunkBlankOption.textContent = 'Selecteaza variatie';
+                submodelVariationSelect.appendChild(submodelTrunkBlankOption);
+                PTCProductBuilder.submodelVariationDescriptions = {};
+                PTCProductBuilder.setSubmodelVariationDescription();
             }
         }
 
         if (type === 'carSubmodel') {
             titleEl.innerText = this.getProcessedTitleByCurrentSettings();
 
-            if (this.isActiveCarSetting('carSubmodelTrunk')) {
-                submodelTrunkSelect.innerHTML = '';
+            if (this.isActiveCarSetting('carSubmodelVariation')) {
+                submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = 'Selecteaza tip portbagaj';
-                submodelTrunkSelect.appendChild(submodelTrunkBlankOption);
+                submodelTrunkBlankOption.textContent = 'Selecteaza variatie';
+                submodelVariationSelect.appendChild(submodelTrunkBlankOption);
+                PTCProductBuilder.submodelVariationDescriptions = {};
+                PTCProductBuilder.setSubmodelVariationDescription();
             }
         }
 
         if (type === 'carBrand' || type === 'carModel' || type === 'carSubmodel') {
             const options = await PTCProductBuilder.getCarOptions();
 
-            if (type === 'carSubmodel' && this.isActiveCarSetting('carSubmodelTrunk')) {
+            if (type === 'carSubmodel' && this.isActiveCarSetting('carSubmodelVariation')) {
                 if (options.length === 0) {
-                    this.carSettings.carSubmodelTrunk = '';
+                    this.carSettings.carSubmodelVariation = '';
                 }
-                submodelTrunkSelect.style.display = options.length === 0 ? 'none' : 'block'
+                submodelVariationSelect.style.display = options.length === 0 ? 'none' : 'block'
             }
 
             options.forEach(item => {
                 const option = document.createElement('option');
                 option.value = item.id;
                 option.textContent = item.name;
+                if (item.hasOwnProperty('description')) {
+                    PTCProductBuilder.submodelVariationDescriptions[item.id] = item.description;
+                }
                 switch (type) {
                     case "carBrand":
                         modelSelect.appendChild(option);
@@ -504,8 +521,8 @@ const PTCProductBuilder = {
                         submodelSelect.appendChild(option);
                         break;
                     case "carSubmodel":
-                        if (this.isActiveCarSetting('carSubmodelTrunk')) {
-                            submodelTrunkSelect.appendChild(option);
+                        if (this.isActiveCarSetting('carSubmodelVariation')) {
+                            submodelVariationSelect.appendChild(option);
                         }
                         break;
                 }
@@ -558,7 +575,6 @@ const PTCProductBuilder = {
             if (!response.ok) return [];
             return await response.json();
         } catch (error) {
-            console.error('Error get data:', error);
             return [];
         }
     },
@@ -604,6 +620,16 @@ const PTCProductBuilder = {
         const dotIndex = filename.lastIndexOf(".");
         if (dotIndex === -1) return filename + string;
         return filename.substring(0, dotIndex) + string + filename.substring(dotIndex);
+    },
+    setSubmodelVariationDescription: function (key = null) {
+        const carSubmodelVariationDescriptionEl = document.getElementById('carSubmodelVariationDescription');
+        if (carSubmodelVariationDescriptionEl) {
+            if (key === null) {
+                carSubmodelVariationDescriptionEl.innerText = '';
+            } else {
+                carSubmodelVariationDescriptionEl.innerText = PTCProductBuilder.submodelVariationDescriptions[key] ?? '';
+            }
+        }
     },
     submit: async function (e) {
         e.preventDefault()
@@ -684,7 +710,7 @@ const PTCProductBuilder = {
             'carBrand': document.getElementById('carBrandError'),
             'carModel': document.getElementById('carModelError'),
             'carSubmodel': document.getElementById('carSubmodelError'),
-            'carSubmodelTrunk': document.getElementById('carSubmodelTrunkError'),
+            'carSubmodelVariation': document.getElementById('carSubmodelVariationError'),
         }
 
         let hasError = false;
