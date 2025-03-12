@@ -143,7 +143,7 @@
                         <h3 class="pBuilderStep pBuilderStep2">Personalizeaza-ti mocheta</h3>
                         <div class="options">
                             <div class="option" id="baseColor">
-                                <p class="option-title">Culoare cauciuc: <span class="value">Negru</span></p>
+                                <p class="option-title">Culoare mocheta: <span class="value">Negru</span></p>
                                 <div class="option-values">
                                     <label class="option-value color black">
                                         <input type="radio" name="baseColor" value="black" checked>
@@ -161,6 +161,10 @@
                                         <input type="radio" name="baseColor" value="beige">
                                         <span class="circle-button-wrapper"><span class="circle-button"></span></span>
                                     </label>
+                                    <label class="option-value color red" style="display:none">
+                                        <input type="radio" name="baseColor" value="red">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
                                 </div>
                             </div>
                             <div class="option" id="borderColor">
@@ -172,6 +176,10 @@
                                     </label>
                                     <label class="option-value color blue">
                                         <input type="radio" name="borderColor" value="blue">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                    <label class="option-value color darkBlue">
+                                        <input type="radio" name="borderColor" value="darkBlue">
                                         <span class="circle-button-wrapper"><span class="circle-button"></span></span>
                                     </label>
                                     <label class="option-value color purple">
@@ -194,6 +202,10 @@
                                         <input type="radio" name="borderColor" value="grey">
                                         <span class="circle-button-wrapper"><span class="circle-button"></span></span>
                                     </label>
+                                    <label class="option-value color anthraciteGrey">
+                                        <input type="radio" name="borderColor" value="anthraciteGrey">
+                                        <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
                                     <label class="option-value color red">
                                         <input type="radio" name="borderColor" value="red">
                                         <span class="circle-button-wrapper"><span class="circle-button"></span></span>
@@ -205,6 +217,19 @@
                                     <label class="option-value color beige">
                                         <input type="radio" name="borderColor" value="beige">
                                         <span class="circle-button-wrapper"><span class="circle-button"></span></span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="option" id="threadType">
+                                <p class="option-title">Tip cusatura: <span class="value">simpla</span></p>
+                                <div class="option-values">
+                                    <label class="option-value box">
+                                        <input type="radio" name="threadType" value="simple" checked>
+                                        <span class="box-text">Simpla</span>
+                                    </label>
+                                    <label class="option-value box">
+                                        <input type="radio" name="threadType" value="double">
+                                        <span class="box-text">Dubla</span>
                                     </label>
                                 </div>
                             </div>
@@ -268,7 +293,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="gX gMX hBuildBox">
                     <div class="c s12 m12 l12">
                         <h3 class="pBuilderStep pBuilderStep3">Broderie</h3>
