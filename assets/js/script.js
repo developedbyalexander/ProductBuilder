@@ -346,15 +346,22 @@ const PTCProductBuilder = {
         }
     },
     updatePrice: function () {
-        const price = this.getPriceByCurrentSettings();
+        const {price, regularPrice} = this.getPriceByCurrentSettings();
+        debugger
         const priceEl = document.getElementById('price');
         const priceValue = priceEl.getElementsByTagName('span');
+        const regularPriceEl = document.getElementById('regularPrice');
+        const regularPriceValue = regularPriceEl.getElementsByTagName('span');
         priceValue[0].innerText = price;
+        regularPriceValue[0].innerText = regularPrice;
+        regularPriceEl.style.display = price === regularPrice ? 'none' : 'inline-block';
     },
     getPriceByCurrentSettings: function () {
         let price;
+        let regularPrice;
         if (this.isStandardPrice()) {
             price = this.prices.basePrice;
+            regularPrice = this.prices.regularPrice ?? price;
         } else {
             const standardPriceDiff = this.getStandardPriceDiff();
             price = this.prices.basePrice
@@ -369,7 +376,8 @@ const PTCProductBuilder = {
         if (PTCProductBuilder.currentSettings.embroidery === 'yes') {
             price = price + this.getEmbroideryPriceBySettings()
         }
-        return price;
+        regularPrice = regularPrice ?? price;
+        return {price, regularPrice};
     },
     getEmbroideryPriceBySettings: function () {
         const itemActions = this.embroiderySettings.itemActions;
@@ -641,8 +649,9 @@ const PTCProductBuilder = {
         this.disabled = true;
         this.textContent = 'Se trimite...';
         const formData = new FormData();
+        const {price, regularPrice} = PTCProductBuilder.getPriceByCurrentSettings();
         formData.append('title', PTCProductBuilder.getProcessedTitleByCurrentSettings());
-        formData.append('price', PTCProductBuilder.getPriceByCurrentSettings());
+        formData.append('price', price);
         formData.append('properties', JSON.stringify(await PTCProductBuilder.getProperties()));
 
         const xhr = new XMLHttpRequest();

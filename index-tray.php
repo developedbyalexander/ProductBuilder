@@ -32,9 +32,16 @@
         <div class="gX gMX product-builder" id="productBuilder">
             <div class="c s12 m6 l6 prodImgs">
                 <div class="images">
-                    <img src="https://cdn.shopify.com/s/files/1/0324/8091/9684/files/covorase-auto-personalizate-1.jpg?v=1719428359" alt="Image" id="firstImage" width="351" height="351">
+                    <img src="https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu.jpg?v=1740741179" alt="Image" id="firstImage" width="351" height="351">
+                    <img src="https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_2.jpg?v=1740741179" alt="Image" id="secondImage" width="351" height="351">
+                    <img src="https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_3.jpg?v=1740741179" alt="Image" id="thirdImage" width="351" height="351">
+                    <img src="https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_4.jpg?v=1740741179" alt="Image" id="fourthImage" width="351" height="351">
+                    <img src="https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_5.jpg?v=1740741179" alt="Image" id="fifthImage" width="351" height="351">
+                    <img src="https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_6.jpg?v=1740741179" alt="Image" id="sixthImage" width="351" height="351">
+                    <img class="lazy" data-src="" alt="Image" id="seventhImage" width="351" height="351">
                 </div>
             </div>
+
             <div class="c s12 m6 l6 prodContent" id="productBuilderFields">
                 <div class="gX gMX hBuildBox car-details">
                     <div class="c s12 m12 l12"><h3 class="pBuilderStep pBuilderStep1">Alege-ti masina</h3></div>
@@ -130,12 +137,13 @@
                     </div>
                     <div class="c s6 m6 l6">
                         <label>
-                            <select name="carSubmodelTrunk" id="carSubmodelTrunk">
-                                <option value="">Selecteaza tip portbagaj</option>
+                            <select name="carSubmodelVariation" id="carSubmodelVariation">
+                                <option value="">Selecteaza variatie</option>
                             </select>
-                            <span id="carSubmodelTrunkError" class="error"></span>
+                            <span id="carSubmodelVariationError" class="error"></span>
                         </label>
                     </div>
+                    <div class="c s12 m12 l12"><p id="carSubmodelVariationDescription"></p></div>
                 </div>
                 <br/>
                 <div class="gX gMX hBuildBox">
@@ -287,7 +295,9 @@
                                 <p>COD: AP123456<br/>Brand: PTC-Auto</p>
                             </div>
                             <div class="c s6 m6 l6">
-                                <p class="pBuilderShipping">Livrare maine<br><span class="product-price" id="price"><span>299</span> lei</span>
+                                <p class="pBuilderShipping">Livrare maine<br>
+                                    <span class="product-regular-price" id="regularPrice"><span>299</span> lei</span>
+                                    <span class="product-price" id="price"><span>299</span> lei</span>
                                 </p>
                             </div>
                         </div>
@@ -957,56 +967,487 @@
                 "embroideryIconsURL": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/",
                 "storageKey": "PTCProductBuilderTray",
                 "prices": {
-                    "basePrice": 299,
+                    "regularPrice": 239,
+                    "basePrice": 179,
                     "borderColor": 24,
                     "standard": [
                         {
                             "baseColor": "black",
-                            "borderColor": "black"
+                            "borderColor": "black",
+                            "threadType": "simple",
+                            "threadColor": "black"
                         },
                         {
                             "baseColor": "grey",
-                            "borderColor": "grey"
+                            "borderColor": "grey",
+                            "threadType": "simple",
+                            "threadColor": "grey"
                         },
                         {
                             "baseColor": "beige",
-                            "borderColor": "beige"
+                            "borderColor": "beige",
+                            "threadType": "simple",
+                            "threadColor": "beige"
                         }
                     ],
                     "embroidery": {
-                        "1": 50,
-                        "2": 90,
-                        "3": 130,
-                        "4": 160,
-                        "5": 223,
-                        "6": 260,
-                        "7": 302,
-                        "8": 320
+                        "1": 94
                     },
                     "threadColor": {
                         "simple": 14,
                         "double": 24
-                    },
+                    }
                 },
                 "activeCarSettings": {
-                    'carBrand': true,
-                    'carModel': true,
-                    'carSubmodel': true,
-                    'carSubmodelTrunk': true
+                    "carBrand": true,
+                    "carModel": true,
+                    "carSubmodel": true,
+                    "carSubmodelVariation": true
                 },
                 "activeSettings": {
                     "baseColor": true,
                     "borderColor": true,
-                    "threadType": false,
+                    "threadType": true,
                     "threadColor": true,
                     "reinforcement": false,
                     "configuration": false,
                     "embroidery": true
                 },
-                "baseTitle": "Covorase auto",
-                "embroideryItemKeys": [
-                    "item-5"
-                ]
+                "baseTitle": "Tavita portbagaj",
+                "images": {
+                    "beige-white": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-alb.png?v=1741194306",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_alb_1.jpg?v=1740735542",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_alb_2.jpg?v=1740735543",
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-darkBlue": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_albastru_inchis.jpg?v=1740735740",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_albastru_inchis_1.jpg?v=1740735740",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_albastru_inchis_2.jpg?v=1740735740",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_albastru_inchis_3.jpg?v=1740735740",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-orange": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-portocaliu.png?v=1741194306",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_portocaliu_1.jpg?v=1740736453",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_portocaliu_2.jpg?v=1740736453",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_portocaliu_3.jpg?v=1740736453",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-black": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-negru.png?v=1741194306",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_negru_1.jpg?v=1740736397",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_negru_2.jpg?v=1740736397",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_negru_3.jpg?v=1740736397",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-grey": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-gri.png?v=1741194305",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_gri_1.jpg?v=1740736107",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_gri_2.jpg?v=1740736107  ",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_gri_3.jpg?v=1740736107",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-anthraciteGrey": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_gri_antracit_1.jpg?v=1740736214",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_gri_antracit_2.jpg?v=1740736214",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_gri_antracit_3.jpg?v=1740736214",
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-beige": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-bej.png?v=1741194306",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_bej.jpg?v=1740735965",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_bej_1.jpg?v=1740735965",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_bej_2.jpg?v=1740735965",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-red": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-rosu.png?v=1741194305",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_rosu_1.jpg?v=1740736504",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_rosu_2.jpg?v=1740736504",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_rosu_3.jpg?v=1740736504",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-blue": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-albastru.png?v=1741194306",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_albastru_1.jpg?v=1740735678",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_albastru_2.jpg?v=1740735678",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_albastru_3.jpg?v=1740735678",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-yellow": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-galben.png?v=1741194305",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_galben_1.jpg?v=1740736047",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_galben_2.jpg?v=1740736047 ",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_galben_3.jpg?v=1740736047",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-purple": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-mov.png?v=1741194306",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_mov_1.jpg?v=1740736281",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_mov_2.jpg?v=1740736281",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_mov_3.jpg?v=1740736281",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "beige-magenta": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/bej-roz.png?v=1741194305",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_roz_1.jpg?v=1740736645",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_roz_2.jpg?v=1740736645",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_bej_roz_3.jpg?v=1740736645",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-white": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-alb.png?v=1741194717",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_alb_1.jpg?v=1740740287",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_alb_2.jpg?v=1740740287",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_alb_3.jpg?v=1740740287",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-darkBlue": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-albastru.png?v=1741194717",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_albastru_inchis_1.jpg?v=1740740440",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_albastru_inchis_2.jpg?v=1740740440",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_albastru_inchis_3.jpg?v=1740740440",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-orange": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-portocaliu.png?v=1741194718",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_portocaliu_1.jpg?v=1740740827",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_portocaliu_2.jpg?v=1740740827",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_portocaliu_3.jpg?v=1740740827",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-black": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-negru.png?v=1741194718",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_negru_1.jpg?v=1740740777",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_negru_2.jpg?v=1740740777",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_negru_3.jpg?v=1740740777",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-grey": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-gri.png?v=1741194716",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_1.jpg?v=1740740587",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_2.jpg?v=1740740587",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_3.jpg?v=1740740587",
+                        "fifthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_4.jpg?v=1740740587",
+                        "sixthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_5.jpg?v=1740740587",
+                        "seventhImage": false
+                    },
+                    "black-anthraciteGrey": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_antracit_0.jpg?v=1740740677",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_antracit_1.jpg?v=1740740677",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_antracit_2.jpg?v=1740740677",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_gri_antracit_3.jpg?v=1740740677",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-beige": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-bej.png?v=1741194717",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_bej_1.jpg?v=1740740505",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_bej_2.jpg?v=1740740505",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_bej_3.jpg?v=1740740505",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-red": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-rosu.png?v=1741194718",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_2.jpg?v=1740741179",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_3.jpg?v=1740741179",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_4.jpg?v=1740741179",
+                        "fifthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_5.jpg?v=1740741179",
+                        "sixthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_rosu_6.jpg?v=1740741179",
+                        "seventhImage": false
+                    },
+                    "black-blue": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-albastru.png?v=1741194717",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_albastru_1.jpg?v=1740740351",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_albastru_2.jpg?v=1740740351",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_albastru_3.jpg?v=1740740351",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-yellow": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-galben.png?v=1741194717",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_galben_1.jpg?v=1740740546",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_galben_2.jpg?v=1740740546",
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-purple": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-mov.png?v=1741194718",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_mov_1.jpg?v=1740740723",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_mov_2.jpg?v=1740740723",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_mov_3.jpg?v=1740740723",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "black-magenta": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/negru-roz.png?v=1741194717",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_roz_1.jpg?v=1740741238",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_roz_2.jpg?v=1740741238",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_negru_roz_3.jpg?v=1740741238",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-white": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-alb.png?v=1741194523",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_alb_1.jpg?v=1740737376",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_alb_2.jpg?v=1740737376",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_alb_3.jpg?v=1740737376",
+                        "fifthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_alb_4.jpg?v=1740737376",
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-darkBlue": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-albastru.png?v=1741194523",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_albastru_inchis_1.jpg?v=1740739438",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_albastru_inchis_2.jpg?v=1740739438",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_albastru_inchis_3.jpg?v=1740739438",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-orange": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-portocaliu.png?v=1741194523",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_portocaliu_1.jpg?v=1740739981",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_portocaliu_2.jpg?v=1740739981",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_portocaliu_3.jpg?v=1740739981",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-black": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-negru.png?v=1741194523",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_negru_1.jpg?v=1740739836",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_negru_2.jpg?v=1740739836",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_negru_3.jpg?v=1740739836",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-grey": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-gri.png?v=1741194523",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_gri_1.jpg?v=1740739714",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_gri_2.jpg?v=1740739714",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_gri_3.jpg?v=1740739714",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-anthraciteGrey": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-beige": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-bej.png?v=1741194522",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_bej_1.jpg?v=1740739596",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_bej_2.jpg?v=1740739596",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_bej_3.jpg?v=1740739596",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-red": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-rosu.png?v=1741194522",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_rosu_1.jpg?v=1740740019",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_rosu_2.jpg?v=1740740019",
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-blue": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-albastru.png?v=1741194523",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_albastru_1.jpg?v=1740739312",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_albastru_2.jpg?v=1740739312",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_albastru_3.jpg?v=1740739312",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-yellow": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-galben.png?v=1741194522",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_galben_1.jpg?v=1740739664",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_galben_2.jpg?v=1740739664",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_galben_3.jpg?v=1740739664",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-purple": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-mov.png?v=1741194523",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_mov_1.jpg?v=1740739786",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_mov_2.jpg?v=1740739786",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_mov_3.jpg?v=1740739786",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "grey-magenta": {
+                        "firstImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/gri-roz.png?v=1741194522",
+                        "secondImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_roz_1.jpg?v=1740740065",
+                        "thirdImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_roz_2.jpg?v=1740740065",
+                        "fourthImage": "https://cdn.shopify.com/s/files/1/0324/8091/9684/files/tavite_auto_gri_roz_3.jpg?v=1740740065",
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-white": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-darkBlue": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-orange": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-black": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-grey": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-anthraciteGrey": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-beige": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-red": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-blue": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-yellow": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-purple": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    },
+                    "red-magenta": {
+                        "firstImage": false,
+                        "secondImage": false,
+                        "thirdImage": false,
+                        "fourthImage": false,
+                        "fifthImage": false,
+                        "sixthImage": false,
+                        "seventhImage": false
+                    }
+                }
             };
             PTCProductBuilder.init(config);
         });
