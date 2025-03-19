@@ -347,7 +347,6 @@ const PTCProductBuilder = {
     },
     updatePrice: function () {
         const {price, regularPrice} = this.getPriceByCurrentSettings();
-        debugger
         const priceEl = document.getElementById('price');
         const priceValue = priceEl.getElementsByTagName('span');
         const regularPriceEl = document.getElementById('regularPrice');
