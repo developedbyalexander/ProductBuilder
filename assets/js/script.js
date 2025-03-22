@@ -1,6 +1,7 @@
 "use strict"
 
 const PTCProductBuilder = {
+    location: 'ro',
     apiURL: null,
     fetchOptionURL: null,
     embroiderySaveImageURL: null,
@@ -156,6 +157,7 @@ const PTCProductBuilder = {
         },
     },
     submodelVariationDescriptions: {},
+    translations: {},
     init: async function (config) {
         this.applyConfig(config);
         this.addListeners();
@@ -181,7 +183,9 @@ const PTCProductBuilder = {
             'activeCarSettings',
             'activeSettings',
             'baseTitle',
-            'embroideryItemKeys'
+            'embroideryItemKeys',
+            'translations',
+            'location'
         ];
         for (const key of configKeys) {
             if (config.hasOwnProperty(key)) {
@@ -263,7 +267,8 @@ const PTCProductBuilder = {
         const titleText = optionEl.querySelector('.value');
         if (titleText) {
             const key = this.optionTextValueMappings[optionKey];
-            titleText.innerText = this.mappings[key]?.[value] ?? value;
+            const text = this.mappings[key]?.[value] ?? value;
+            titleText.innerText = this.getTranslatedText(value, text);
         }
     },
     updateSetting: function (key, value) {
@@ -457,17 +462,17 @@ const PTCProductBuilder = {
             submodelSelect.innerHTML = '';
 
             const modelBlankOption = document.createElement('option');
-            modelBlankOption.textContent = 'Selecteaza model';
+            modelBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseModel', 'Selecteaza model');
             modelSelect.appendChild(modelBlankOption);
 
             const submodelBlankOption = document.createElement('option');
-            submodelBlankOption.textContent = 'Selecteaza submodel';
+            submodelBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseGeneration', 'Selecteaza generatia');
             submodelSelect.appendChild(submodelBlankOption);
 
             if (this.isActiveCarSetting('carSubmodelVariation')) {
                 submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = 'Selecteaza variatie';
+                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseVariation', 'Selecteaza variatie');
                 submodelVariationSelect.appendChild(submodelTrunkBlankOption);
                 PTCProductBuilder.submodelVariationDescriptions = {};
                 PTCProductBuilder.setSubmodelVariationDescription();
@@ -477,13 +482,13 @@ const PTCProductBuilder = {
             submodelSelect.innerHTML = '';
 
             const submodelBlankOption = document.createElement('option');
-            submodelBlankOption.textContent = 'Selecteaza submodel';
+            submodelBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseGeneration', 'Selecteaza generatia');
             submodelSelect.appendChild(submodelBlankOption);
 
             if (this.isActiveCarSetting('carSubmodelVariation')) {
                 submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = 'Selecteaza variatie';
+                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseVariation', 'Selecteaza variatie');
                 submodelVariationSelect.appendChild(submodelTrunkBlankOption);
                 PTCProductBuilder.submodelVariationDescriptions = {};
                 PTCProductBuilder.setSubmodelVariationDescription();
@@ -496,7 +501,7 @@ const PTCProductBuilder = {
             if (this.isActiveCarSetting('carSubmodelVariation')) {
                 submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = 'Selecteaza variatie';
+                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseVariation', 'Selecteaza variatie');
                 submodelVariationSelect.appendChild(submodelTrunkBlankOption);
                 PTCProductBuilder.submodelVariationDescriptions = {};
                 PTCProductBuilder.setSubmodelVariationDescription();
@@ -566,6 +571,7 @@ const PTCProductBuilder = {
     getCarOptions: async function () {
         const urlParams = new URLSearchParams();
         urlParams.append('type', this.storageKey);
+        urlParams.append('location', this.location);
         for (const key in this.carSettings) {
             if (this.carSettings[key] !== null) {
                 urlParams.append(key, this.carSettings[key]);
@@ -726,7 +732,7 @@ const PTCProductBuilder = {
             if (!this.isActiveCarSetting(key)) continue;
             if (this.carSettings[key] === null) {
                 if (!hasError) hasError = true;
-                errorEls[key].innerText = 'Selecteaza o optiune';
+                errorEls[key].innerText = this.getTranslatedText('selectAnOption', 'Selecteaza o optiune');
             } else {
                 errorEls[key].innerText = '';
             }
@@ -756,6 +762,9 @@ const PTCProductBuilder = {
         removeSettings: function () {
             localStorage.removeItem(PTCProductBuilder.storageKey);
         }
+    },
+    getTranslatedText(key, fallback = null) {
+        return this.translations[key] ?? fallback;
     },
     embroideryBuilder: {
         itemKeys: [],
@@ -1610,7 +1619,7 @@ const PTCProductBuilder = {
         updateEmbroideryEditModal: function (type) {
             const titleEl = document.getElementById('embroideryEditModalTitle');
             if (type === 'all') {
-                titleEl.textContent = 'Toate covorasele';
+                titleEl.textContent = PTCProductBuilder.getTranslatedText('allMats', 'Toate covorasele');
             } else {
                 titleEl.textContent = PTCProductBuilder.getCheckedRadioOptionText('embroideryItem');
             }
