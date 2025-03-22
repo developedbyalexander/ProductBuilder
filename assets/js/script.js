@@ -378,7 +378,9 @@ const PTCProductBuilder = {
             }
         }
         if (PTCProductBuilder.currentSettings.embroidery === 'yes') {
-            price = price + this.getEmbroideryPriceBySettings()
+            const embroideryPrice = this.getEmbroideryPriceBySettings();
+            price = price + embroideryPrice;
+            if(embroideryPrice > 0) regularPrice = null;
         }
         regularPrice = regularPrice ?? price;
         return {price, regularPrice};
