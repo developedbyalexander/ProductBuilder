@@ -356,9 +356,15 @@ const PTCProductBuilder = {
         const priceValue = priceEl.getElementsByTagName('span');
         const regularPriceEl = document.getElementById('regularPrice');
         const regularPriceValue = regularPriceEl.getElementsByTagName('span');
-        priceValue[0].innerText = price;
-        regularPriceValue[0].innerText = regularPrice;
+        priceValue[0].innerText = this.formatPrice(price);
+        regularPriceValue[0].innerText = this.formatPrice(regularPrice);
         regularPriceEl.style.display = price === regularPrice ? 'none' : 'inline-block';
+    },
+    formatPrice: function (num) {
+        return new Intl.NumberFormat('de-DE', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(num ?? 0);
     },
     getPriceByCurrentSettings: function () {
         let price;
@@ -464,17 +470,17 @@ const PTCProductBuilder = {
             submodelSelect.innerHTML = '';
 
             const modelBlankOption = document.createElement('option');
-            modelBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseModel', 'Selecteaza model');
+            modelBlankOption.textContent = PTCProductBuilder.getTranslatedText('chooseModel', 'Selecteaza model');
             modelSelect.appendChild(modelBlankOption);
 
             const submodelBlankOption = document.createElement('option');
-            submodelBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseGeneration', 'Selecteaza generatia');
+            submodelBlankOption.textContent = PTCProductBuilder.getTranslatedText('chooseGeneration', 'Selecteaza generatia');
             submodelSelect.appendChild(submodelBlankOption);
 
             if (this.isActiveCarSetting('carSubmodelVariation')) {
                 submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseVariation', 'Selecteaza variatie');
+                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('chooseVariation', 'Selecteaza variatie');
                 submodelVariationSelect.appendChild(submodelTrunkBlankOption);
                 PTCProductBuilder.submodelVariationDescriptions = {};
                 PTCProductBuilder.setSubmodelVariationDescription();
@@ -484,13 +490,13 @@ const PTCProductBuilder = {
             submodelSelect.innerHTML = '';
 
             const submodelBlankOption = document.createElement('option');
-            submodelBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseGeneration', 'Selecteaza generatia');
+            submodelBlankOption.textContent = PTCProductBuilder.getTranslatedText('chooseGeneration', 'Selecteaza generatia');
             submodelSelect.appendChild(submodelBlankOption);
 
             if (this.isActiveCarSetting('carSubmodelVariation')) {
                 submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseVariation', 'Selecteaza variatie');
+                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('chooseVariation', 'Selecteaza variatie');
                 submodelVariationSelect.appendChild(submodelTrunkBlankOption);
                 PTCProductBuilder.submodelVariationDescriptions = {};
                 PTCProductBuilder.setSubmodelVariationDescription();
@@ -503,7 +509,7 @@ const PTCProductBuilder = {
             if (this.isActiveCarSetting('carSubmodelVariation')) {
                 submodelVariationSelect.innerHTML = '';
                 const submodelTrunkBlankOption = document.createElement('option');
-                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('choseVariation', 'Selecteaza variatie');
+                submodelTrunkBlankOption.textContent = PTCProductBuilder.getTranslatedText('chooseVariation', 'Selecteaza variatie');
                 submodelVariationSelect.appendChild(submodelTrunkBlankOption);
                 PTCProductBuilder.submodelVariationDescriptions = {};
                 PTCProductBuilder.setSubmodelVariationDescription();
