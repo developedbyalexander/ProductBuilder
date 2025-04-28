@@ -22,7 +22,8 @@ const PTCProductBuilder = {
         'threadColor': true,
         'reinforcement': true,
         'configuration': true,
-        'embroidery': true
+        'embroidery': true,
+        'houseType': false
     },
     currentSettings: {
         'version': '1.2.0',
@@ -83,6 +84,10 @@ const PTCProductBuilder = {
         yesNo: {
             'no': 'Nu',
             'yes': 'Da'
+        },
+        'houseTypes': {
+            'exterior': 'Exterior',
+            'interior': 'Interior',
         }
     },
     images: {},
@@ -95,7 +100,8 @@ const PTCProductBuilder = {
         'threadType': 'threadTypes',
         'threadColor': 'colors',
         'reinforcement': 'yesNo',
-        'embroidery': 'yesNo'
+        'embroidery': 'yesNo',
+        'houseType': 'houseTypes'
     },
     odooMappings: {
         'baseColor': {
@@ -164,6 +170,8 @@ const PTCProductBuilder = {
         if (this.storage.hasSettings()) {
             this.currentSettings = this.storage.getSettings();
             await this.updateOptionsBySettings();
+        } else {
+            this.initExtraCurrentSettings();
         }
         this.preloadImages();
         if (this.isActiveSetting('embroidery')) {
@@ -191,6 +199,11 @@ const PTCProductBuilder = {
             if (config.hasOwnProperty(key)) {
                 this[key] = config[key];
             }
+        }
+    },
+    initExtraCurrentSettings: function () {
+        if(this.isActiveSetting('houseType')) {
+            this.currentSettings.houseType = 'exterior';
         }
     },
     addListeners: function () {
@@ -228,6 +241,11 @@ const PTCProductBuilder = {
             document.querySelectorAll('input[name="embroidery"]').forEach(input => {
                 input.addEventListener('input', this.changeOption);
                 input.addEventListener('input', this.toggleEmbroideryBuilder);
+            });
+        }
+        if (this.isActiveSetting('houseType')) {
+            document.querySelectorAll('input[name="houseType"]').forEach(input => {
+                input.addEventListener('input', this.changeOption);
             });
         }
 
@@ -314,13 +332,22 @@ const PTCProductBuilder = {
         const images = this.images[`${settings.baseColor}-${settings.borderColor}`] ?? false;
         if (images) {
             if (images.firstImage) {
+                document.getElementById('firstImage').style.display = "block";
                 document.getElementById('firstImage').src = this.resizeImage(images.firstImage, '_450x450_crop_center');
+            } else {
+                document.getElementById('firstImage').style.display = "none";
             }
             if (images.secondImage) {
+                document.getElementById('secondImage').style.display = "block";
                 document.getElementById('secondImage').src = this.resizeImage(images.secondImage, '_450x450_crop_center');
+            } else {
+                document.getElementById('secondImage').style.display = "none";
             }
             if (images.thirdImage) {
+                document.getElementById('thirdImage').style.display = "block";
                 document.getElementById('thirdImage').src = this.resizeImage(images.thirdImage, '_450x450_crop_center');
+            } else {
+                document.getElementById('thirdImage').style.display = "none";
             }
             if (images.fourthImage) {
                 document.getElementById('fourthImage').style.display = "block";
@@ -354,11 +381,15 @@ const PTCProductBuilder = {
         const {price, regularPrice} = this.getPriceByCurrentSettings();
         const priceEl = document.getElementById('price');
         const priceValue = priceEl.getElementsByTagName('span');
-        const regularPriceEl = document.getElementById('regularPrice');
-        const regularPriceValue = regularPriceEl.getElementsByTagName('span');
+
         priceValue[0].innerText = this.formatPrice(price);
-        regularPriceValue[0].innerText = this.formatPrice(regularPrice);
-        regularPriceEl.style.display = price === regularPrice ? 'none' : 'inline-block';
+
+        const regularPriceEl = document.getElementById('regularPrice');
+        if (regularPriceEl) {
+            const regularPriceValue = regularPriceEl.getElementsByTagName('span');
+            regularPriceValue[0].innerText = this.formatPrice(regularPrice);
+            regularPriceEl.style.display = price === regularPrice ? 'none' : 'inline-block';
+        }
     },
     formatPrice: function (num) {
         return new Intl.NumberFormat('de-DE', {
@@ -378,6 +409,8 @@ const PTCProductBuilder = {
             for (const diff of standardPriceDiff) {
                 if (diff === 'threadType' || diff === 'threadColor') {
                     price += this.prices.threadColor[this.currentSettings.threadType]
+                } else if (diff === 'houseType') {
+                    price += this.prices.houseType[this.currentSettings.houseType]
                 } else {
                     price += this.prices[diff]
                 }
@@ -601,8 +634,14 @@ const PTCProductBuilder = {
     },
     getProcessedTitleByCurrentSettings: function () {
         const baseTitle = this.baseTitle;
-        const brand = this.getSelectedOption('carBrand');
-        const submodel = this.getSelectedOption('carSubmodel');
+        let brand = '';
+        let submodel = '';
+        if (this.isActiveSetting('carBrand')) {
+            brand = this.getSelectedOption('carBrand');
+        }
+        if (this.isActiveSetting('carSubmodel')) {
+            submodel = this.getSelectedOption('carSubmodel');
+        }
         return `${baseTitle} ${brand} ${submodel}`;
     },
     preloadImages: async function () {
@@ -1021,6 +1060,55 @@ const PTCProductBuilder = {
                     },
 
                 }
+            },
+            'item-6': {
+                'text': {
+                    'center-bottom': {
+                        'x': 0,
+                        'y': -130,
+                        'rotation': {
+                            'no': 0,
+                            'yes': -180
+                        }
+                    },
+                    'center-left': {
+                        'x': 60,
+                        'y': 0,
+                        'rotation': {
+                            'no': 90,
+                            'yes': -90
+                        }
+                    },
+                    'center-right': {
+                        'x': 440,
+                        'y': 0,
+                        'rotation': {
+                            'no': 90,
+                            'yes': -90
+                        }
+                    }
+                },
+                'image': {
+                    'center-bottom': {
+                        'x': 20,
+                        'y': 0,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-left': {
+                        'x': -70,
+                        'y': 80,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+                    'center-right': {
+                        'x': -80,
+                        'y': 30,
+                        'offsetX': 0,
+                        'offsetY': 0
+                    },
+
+                }
             }
         },
         itemKeyMappings: {
@@ -1028,7 +1116,8 @@ const PTCProductBuilder = {
             'item-2': {key: 'covoras_pasager', title: 'Covoras pasager'},
             'item-3': {key: 'covoras_stanga_spate', title: 'Covoras stanga spate'},
             'item-4': {key: 'covoras_dreapta_spate', title: 'Covoras dreapta spate'},
-            'item-5': {key: 'tavita_portbagaj', title: 'Tavita portbagaj'}
+            'item-5': {key: 'tavita_portbagaj', title: 'Tavita portbagaj'},
+            'item-6': {key: 'covoras_casa', title: 'Covoras casa'}
         },
         svgs: {
             'rug': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 2500">
@@ -1094,6 +1183,34 @@ const PTCProductBuilder = {
   <path id="svgBorderColor" d="M146,1459s29.329-46.08,65-92c25.483-32.81,51.954-54.03,87-70,33.838-15.42,49.285-44.51,53.94-76.09,12.489-84.73,10.112-112.56,40.06-168.91,29.618-55.725,59.557-131.182,72-196s27.475-132.2,12-262c-14.154-118.72-22.062-186.931-25-205-2.975-18.3-8.525-88.7,105-90s291.975-3.7,433-5,479.47-4.2,616,0,352.99,4.124,373,5c16.02,0.7,98.97,17.8,85,106-18.52,116.857-40.53,285.3-37,337s17.82,189.642,34,231,58.32,109.64,61,144,15.83,128.49,29,153c13.13,24.42,41.32,38.52,53,39s36.32,8.52,46,20,72.82,77.52,86,97,22.82,26.52,27,53,33.82,206.02,37,264,7.32,86.02,5,103-5.18,34.02-35,56-33.18,26.02-40,46-16.18,51.52-60,63c-42.13,11.04-32.82,3.75-44,5-13.32,1.48-40.68,11-85,11s-50.18-12-72-12-63.68,26.02-83,32-95.68,11.02-165,18-87.69,2.5-143,31c-55.25,28.47-117.3,70.51-187,87-81.3,19.23-150.69,23.9-221,25-72.2,1.13-147.63-5.32-250-27-79.8-16.9-100.135-26.48-136.226-45.15C801.76,2093.94,768.567,2081.01,713,2077c-56.353-4.07-150.181-11.48-185-15-20.119-2.03-39.681-13.48-65-28s-47.181-11.48-68-7-43.7,5.45-108-7c-85.319-16.52-107.989-14.78-126-71-12.819-40.02-19.181-32.48-34-47s-33.1-16.37-31-75C98.181,1765.98,129.5,1516.5,146,1459Z"/>
   <path id="svgFirstThreadColor" data-name="Ata 1" d="M151.521,1457.95s31.182-45.84,66.675-91.54c25.356-32.64,49.694-51.75,84.565-67.65,33.669-15.34,51.039-46.29,55.671-77.71,12.426-84.3,9.061-112,38.859-168.06,29.47-55.447,58.26-130.527,70.64-195.02s30.338-131.54,14.94-260.69c-14.083-118.126-21.952-186-24.875-203.975-2.96-18.208-15.482-86.758,97.475-88.05s294.515-5.183,434.835-6.475,477.074-4.18,612.924,0,351.22,7.6,371.13,8.475c15.95,0.7,94.98,11.21,81.08,98.97C2037.01,522.5,2017.61,693.1,2021.12,744.54s17.74,188.693,33.83,229.845,59.03,109.1,61.7,143.275,15.74,127.85,28.85,152.24c13.06,24.29,41.11,41.32,52.74,41.8s36.13,8.48,45.77,19.9,72.45,74.13,85.57,93.52,22.7,26.38,26.86,52.73,33.65,204.99,36.82,262.68,7.28,85.59,4.97,102.49-5.15,35.85-34.82,57.72-33.02,23.89-39.8,43.77-16.1,51.26-59.7,62.68c-41.93,10.99-32.66,3.74-43.78,4.98-13.26,1.48-40.48,8.94-84.58,8.94s-49.93-9.94-71.64-9.94-63.36,25.89-82.58,31.84-95.21,10.97-164.18,17.91-87.25,2.49-142.28,30.85c-54.98,28.32-116.72,70.16-186.07,86.56-80.89,19.14-149.94,23.79-219.89,24.88-71.85,1.12-146.89-5.29-248.75-26.87-79.4-16.81-99.638-26.35-135.549-44.92-80.609-41.69-113.635-54.56-168.925-58.56-56.071-4.04-149.43-11.42-184.075-14.92-20.019-2.02-39.483-13.42-64.675-27.86s-46.945-13.43-67.66-8.97-43.484,7.42-107.46-4.96c-84.892-16.43-107.449-14.7-125.37-70.65-12.755-39.81-19.085-32.32-33.83-46.76s-32.93-16.29-30.845-74.63C103.941,1763.4,135.1,1515.17,151.521,1457.95Z"/>
   <path id="svgSecondThreadColor" data-name="Ata 2" d="M138.479,1460.05s29.475-47.31,65.325-93.46c25.61-32.98,56.213-59.3,91.435-75.35,34.007-15.51,49.531-38.74,54.21-70.48,12.55-85.15,8.162-113.12,38.26-169.75,29.766-56,59.854-131.838,72.36-196.98s27.612-132.862,12.06-263.31C457.9,471.407,446.956,402.855,444,384.7c-2.99-18.39-5.568-89.145,108.525-90.45s293.434-3.72,435.165-5.025,481.876-4.222,619.076,0,352.76,6.145,372.87,7.025c16.1,0.7,101.47,15.888,87.42,104.53-18.6,117.442-38.72,286.725-35.18,338.685s16.91,190.59,33.17,232.155,59.61,110.195,62.3,144.725,15.91,128.13,29.15,152.76c13.19,24.54,39.52,34.71,51.26,35.2s36.5,11.55,46.23,23.1,73.19,76.9,86.43,96.48,22.94,25.65,27.14,52.27,33.99,211.04,37.18,269.32,7.36,86.44,5.03,103.51-5.21,34.19-35.18,56.28-34.34,26.15-41.2,46.23-15.26,51.77-59.3,63.32c-42.34,11.09-32.98,5.77-44.22,7.02-13.38,1.49-40.88,11.06-85.42,11.06s-56.43-10.06-78.36-10.06-58,22.14-77.42,28.16-96.16,11.07-165.82,18.09-88.13,2.51-143.72,31.15c-55.52,28.61-117.88,70.87-187.93,87.44-81.71,19.32-151.44,24.02-222.11,25.12-72.56,1.13-148.36-5.34-251.25-27.13-80.2-16.99-100.632-26.62-136.9-45.38-81.419-42.12-114.777-55.11-170.622-59.14-56.635-4.1-150.932-11.55-185.925-15.08-20.22-2.04-39.88-13.55-65.325-28.14s-47.417-9.54-68.34-5.03-43.922,3.47-108.54-9.04c-85.746-16.6-108.529-14.85-126.63-71.35-12.883-40.22-19.277-32.65-34.17-47.24s-33.261-16.45-31.155-75.37C92.421,1768.56,121.9,1517.83,138.479,1460.05Z"/>
+</svg>`,
+            'house': `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 2500">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: #ab9185;
+      }
+
+      .cls-2 {
+        fill-opacity: 0;
+        stroke: #f25c86;
+        stroke-linejoin: round;
+        stroke-width: 45px;
+      }
+
+      .cls-3 {
+        fill: none;
+        stroke: #fff;
+        stroke-width: 3px;
+        stroke-dasharray: 12 6;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <rect id="svgBaseColor" class="cls-1" x="150" y="500" width="2200" height="1500" rx="150" ry="150"/>
+  <rect id="svgBorderColor" class="cls-2" x="150" y="500" width="2200" height="1500" rx="150" ry="150"/>
+  <path id="svgFirstThreadColor" data-name="Ata 1" class="cls-3" d="M295,495H2205a150,150,0,0,1,150,150V1855a150,150,0,0,1-150,150H295a150,150,0,0,1-150-150V645A150,150,0,0,1,295,495Z"/>
+  <path id="svgSecondThreadColor" data-name="Ata 2" class="cls-3" d="M305,505H2195a150,150,0,0,1,150,150V1845a150,150,0,0,1-150,150H305a150,150,0,0,1-150-150V655A150,150,0,0,1,305,505Z"/>
 </svg>`
         },
         svgsByItemKey: {},
@@ -1136,6 +1253,14 @@ const PTCProductBuilder = {
                 },
                 'modal': {
                     'containerId': 'embroideryModalImageItem5'
+                }
+            },
+            'item-6': {
+                'page': {
+                    'containerId': 'embroideryImageItem6'
+                },
+                'modal': {
+                    'containerId': 'embroideryModalImageItem6'
                 }
             }
         },
@@ -1195,7 +1320,8 @@ const PTCProductBuilder = {
                 'item-2': this.svgs.rug,
                 'item-3': this.svgs.rug,
                 'item-4': this.svgs.rug,
-                'item-5': this.svgs.tray
+                'item-5': this.svgs.tray,
+                'item-6': this.svgs.house
             }
         },
         loadStages: function () {
