@@ -304,7 +304,7 @@ const PTCProductBuilder = {
     },
     updateOptionsBySettings: async function () {
         for (const setting in this.currentSettings) {
-            if (!this.isActiveSetting(setting)) continue;
+            if (!this.isActiveSetting(setting) && !this.isActiveCarSetting(setting)) continue;
             const value = this.currentSettings[setting];
             if (setting === 'carBrand' || setting === 'carModel' || setting === 'carSubmodel') {
                 this.carSettings[setting] = value;
@@ -436,7 +436,7 @@ const PTCProductBuilder = {
     isStandardPrice: function () {
         return Boolean(this.prices.standard.find(obj => {
             for (const key in this.currentSettings) {
-                if (['carBrand', 'carModel', 'carSubmodel', 'embroidery'].includes(key)) continue;
+                if (['carBrand', 'carModel', 'carSubmodel', 'carSubmodelVariation', 'embroidery', '_odoo_attributes', 'version'].includes(key)) continue;
                 if (!this.isActiveSetting(key)) continue;
                 if (this.currentSettings.hasOwnProperty(key) && this.currentSettings[key] !== obj[key]) {
                     return false;
@@ -451,7 +451,7 @@ const PTCProductBuilder = {
             if(this.currentSettings.baseColor !== standardPrice.baseColor) continue;
             const currentDiff = [];
             for (const key in this.currentSettings) {
-                if (['carBrand', 'carModel', 'carSubmodel', 'embroidery', '_odoo_attributes', 'version'].includes(key)) continue;
+                if (['carBrand', 'carModel', 'carSubmodel', 'carSubmodelVariation', 'embroidery', '_odoo_attributes', 'version'].includes(key)) continue;
                 if (this.currentSettings.hasOwnProperty(key) && this.currentSettings[key] !== standardPrice[key]) {
                     if (!this.isActiveSetting(key)) continue;
                     currentDiff.push(key);
@@ -636,10 +636,10 @@ const PTCProductBuilder = {
         const baseTitle = this.baseTitle;
         let brand = '';
         let submodel = '';
-        if (this.isActiveSetting('carBrand')) {
+        if (this.isActiveCarSetting('carBrand')) {
             brand = this.getSelectedOption('carBrand');
         }
-        if (this.isActiveSetting('carSubmodel')) {
+        if (this.isActiveCarSetting('carSubmodel')) {
             submodel = this.getSelectedOption('carSubmodel');
         }
         return `${baseTitle} ${brand} ${submodel}`;
@@ -739,7 +739,7 @@ const PTCProductBuilder = {
     },
     getProcessedCurrentSettings: function (currentSettings) {
         return Object.keys(currentSettings).reduce((acc, settingKey) => {
-            if (this.isActiveSetting(settingKey)) {
+            if (this.isActiveSetting(settingKey) || this.isActiveCarSetting(settingKey)) {
                 acc[settingKey] = currentSettings[settingKey];
             }
             return acc;
