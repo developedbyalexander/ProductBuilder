@@ -401,18 +401,18 @@ const PTCProductBuilder = {
         let price;
         let regularPrice;
         if (this.isStandardPrice()) {
-            price = this.prices.basePrice;
-            regularPrice = this.prices.regularPrice ?? price;
+            price = Number(this.prices.basePrice);
+            regularPrice = Number(this.prices.regularPrice) ?? price;
         } else {
             const standardPriceDiff = this.getStandardPriceDiff();
-            price = this.prices.basePrice
+            price = Number(this.prices.basePrice);
             for (const diff of standardPriceDiff) {
                 if (diff === 'threadType' || diff === 'threadColor') {
-                    price += this.prices.threadColor[this.currentSettings.threadType]
+                    price += Number(this.prices.threadColor[this.currentSettings.threadType])
                 } else if (diff === 'houseType') {
-                    price += this.prices.houseType[this.currentSettings.houseType]
+                    price += Number(this.prices.houseType[this.currentSettings.houseType])
                 } else {
-                    price += this.prices[diff]
+                    price += Number(this.prices[diff])
                 }
             }
         }
@@ -699,9 +699,10 @@ const PTCProductBuilder = {
         }
 
         this.disabled = true;
-        this.textContent = 'Se trimite...';
+        this.textContent = PTCProductBuilder.getTranslatedText('btnSending', 'Se trimite...');
         const formData = new FormData();
         const {price, regularPrice} = PTCProductBuilder.getPriceByCurrentSettings();
+        formData.append('location', PTCProductBuilder.location);
         formData.append('title', PTCProductBuilder.getProcessedTitleByCurrentSettings());
         formData.append('price', price);
         formData.append('properties', JSON.stringify(await PTCProductBuilder.getProperties()));
